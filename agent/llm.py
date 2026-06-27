@@ -6,11 +6,27 @@ from typing import Type, TypeVar
 
 load_dotenv()
 
+
+def _get_secret(key: str, default: str = "") -> str:
+    """读取配置：优先 Streamlit Cloud Secrets，回退到环境变量 (.env)。"""
+    # 方式 1: Streamlit Cloud Secrets
+    try:
+        import streamlit as st
+        secrets = dict(st.secrets) if hasattr(st, "secrets") else {}
+        for k in (key, key.lower(), key.upper()):
+            val = secrets.get(k, "")
+            if val:
+                return val
+    except Exception:
+        pass
+    # 方式 2: 本地 .env
+    return os.getenv(key, default)
+
 def get_llm(temperature: float = 0.3, model: str = "deepseek-chat") -> ChatOpenAI:
     return ChatOpenAI(
         model=model,
-        api_key=os.getenv("DEEPSEEK_API_KEY"),
-        base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
+        api_key=_get_secret("DEEPSEEK_API_KEY"),
+        base_url=_get_secret("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
         temperature=temperature,
         max_tokens=4096,
     )
@@ -41,8 +57,8 @@ def get_structured_llm(
       """
       llm = ChatOpenAI(
           model=model,
-          api_key=os.getenv("DEEPSEEK_API_KEY"),
-          base_url=os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
+          api_key=_get_secret("DEEPSEEK_API_KEY"),
+          base_url=_get_secret("DEEPSEEK_BASE_URL", "https://api.deepseek.com"),
           temperature=temperature,
           max_tokens=4096,
       )
