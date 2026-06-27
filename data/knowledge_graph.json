@@ -1,0 +1,1749 @@
+{
+  "subjects": [
+    {
+      "id": "cet6_vocab",
+      "name": "CET6英语词汇",
+      "description": "大学英语六级核心高频词汇",
+      "type": "vocabulary",
+      "domains": [
+        {
+          "id": "academic",
+          "name": "学术与教育",
+          "description": "学术写作、教育话题相关词汇",
+          "knowledge_points": [
+            {
+              "id": "k001",
+              "title": "hypothesis",
+              "type": "word",
+              "content": {
+                "word": "hypothesis",
+                "pronunciation": "/haɪˈpɒθəsɪs/",
+                "definition_cn": "假说，假设",
+                "definition_en": "a proposed explanation for a phenomenon, made as a starting point for further investigation",
+                "pos": "n.",
+                "collocations": [
+                  "formulate a hypothesis",
+                  "test a hypothesis",
+                  "working hypothesis"
+                ],
+                "examples": [
+                  "The scientist formulated a hypothesis to explain the observed data.",
+                  "We need to test this hypothesis through experiments."
+                ],
+                "common_error": "不要与 \"theory\" 混淆，hypothesis 是未经充分验证的假设，theory 是经过验证的理论。",
+                "memory_tip": "hypo-（在...下面）+ thesis（论点）→ 在论点下面的基础假设"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k002",
+              "title": "empirical",
+              "type": "word",
+              "content": {
+                "word": "empirical",
+                "pronunciation": "/ɪmˈpɪrɪkl/",
+                "definition_cn": "经验主义的，以经验为依据的",
+                "definition_en": "based on observation or experience rather than theory or pure logic",
+                "pos": "adj.",
+                "collocations": [
+                  "empirical evidence",
+                  "empirical research",
+                  "empirical data"
+                ],
+                "examples": [
+                  "The theory is supported by strong empirical evidence.",
+                  "Empirical studies have confirmed the hypothesis."
+                ],
+                "common_error": "注意拼写：empirical 不是 \"empirial\"。",
+                "memory_tip": "empir-（经验）+ -ical（形容词后缀）→ 经验的"
+              },
+              "difficulty": 3,
+              "prerequisites": [
+                "k001"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k003",
+              "title": "methodology",
+              "type": "word",
+              "content": {
+                "word": "methodology",
+                "pronunciation": "/ˌmeθəˈdɒlədʒi/",
+                "definition_cn": "方法论，方法学",
+                "definition_en": "a system of methods used in a particular area of study or activity",
+                "pos": "n.",
+                "collocations": [
+                  "research methodology",
+                  "teaching methodology",
+                  "methodology section"
+                ],
+                "examples": [
+                  "The methodology employed in this study is rigorous.",
+                  "We need to discuss the methodology before proceeding."
+                ],
+                "common_error": "methodology 不是 method 的简单同义词，它更强调系统的方法体系。",
+                "memory_tip": "method（方法）+ -ology（学科）→ 方法学"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k004",
+              "title": "paradigm",
+              "type": "word",
+              "content": {
+                "word": "paradigm",
+                "pronunciation": "/ˈpærədaɪm/",
+                "definition_cn": "范式，典范",
+                "definition_en": "a typical example or pattern of something; a model",
+                "pos": "n.",
+                "collocations": [
+                  "paradigm shift",
+                  "research paradigm",
+                  "new paradigm"
+                ],
+                "examples": [
+                  "The discovery led to a paradigm shift in the field.",
+                  "This study follows the quantitative research paradigm."
+                ],
+                "common_error": "注意发音：重音在第一个音节。",
+                "memory_tip": "para-（旁边）+ digm（展示）→ 在旁边展示的模型 → 范式"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k003"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k005",
+              "title": "synthesize",
+              "type": "word",
+              "content": {
+                "word": "synthesize",
+                "pronunciation": "/ˈsɪnθəsaɪz/",
+                "definition_cn": "综合，合成",
+                "definition_en": "to combine (a number of things) into a coherent whole",
+                "pos": "v.",
+                "collocations": [
+                  "synthesize information",
+                  "synthesize ideas",
+                  "synthesize data"
+                ],
+                "examples": [
+                  "The essay synthesizes various perspectives on the issue.",
+                  "We need to synthesize the findings from multiple studies."
+                ],
+                "common_error": "注意拼写：美式英语用 synthesize，英式英语用 synthesise。",
+                "memory_tip": "syn-（一起）+ thesis（放置）+ -ize（动词后缀）→ 放在一起 → 综合"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k006",
+              "title": "critique",
+              "type": "word",
+              "content": {
+                "word": "critique",
+                "pronunciation": "/krɪˈtiːk/",
+                "definition_cn": "评论，批评（文章或评论）",
+                "definition_en": "a detailed analysis and assessment of something, especially a literary, philosophical, or political theory",
+                "pos": "n. & v.",
+                "collocations": [
+                  "literary critique",
+                  "offer a critique",
+                  "critique a theory"
+                ],
+                "examples": [
+                  "Her critique of the novel was insightful.",
+                  "The professor critiqued the student's paper."
+                ],
+                "common_error": "critique 作名词时重音在第二音节，作动词时也是；不要与 \"criticize\" 混淆，critique 更强调分析性评价。",
+                "memory_tip": "来自希腊语 kritikē（评判的艺术）"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k007",
+              "title": "disseminate",
+              "type": "word",
+              "content": {
+                "word": "disseminate",
+                "pronunciation": "/dɪˈsemɪneɪt/",
+                "definition_cn": "散布，传播（信息、知识等）",
+                "definition_en": "to spread or scatter widely, as if sowing seed",
+                "pos": "v.",
+                "collocations": [
+                  "disseminate information",
+                  "disseminate knowledge",
+                  "disseminate research findings"
+                ],
+                "examples": [
+                  "The organization aims to disseminate scientific knowledge to the public.",
+                  "Findings were disseminated through conferences and journals."
+                ],
+                "common_error": "不要与 \"propagate\" 混淆，propagate 更强调繁殖或宣传。",
+                "memory_tip": "dis-（分开）+ semin-（种子）+ -ate（动词后缀）→ 像撒种子一样散布"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k008",
+              "title": "pedagogy",
+              "type": "word",
+              "content": {
+                "word": "pedagogy",
+                "pronunciation": "/ˈpedəɡɒdʒi/",
+                "definition_cn": "教育学，教学法",
+                "definition_en": "the method and practice of teaching, especially as an academic subject or theoretical concept",
+                "pos": "n.",
+                "collocations": [
+                  "pedagogy and curriculum",
+                  "innovative pedagogy",
+                  "critical pedagogy"
+                ],
+                "examples": [
+                  "The course explores different pedagogies for language teaching.",
+                  "Effective pedagogy engages students actively."
+                ],
+                "common_error": "注意拼写：pedagogy 不是 \"pedagogy\" 的变体。",
+                "memory_tip": "ped-（儿童）+ agogos（引导）→ 引导儿童的方法 → 教学法"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k009",
+              "title": "curriculum",
+              "type": "word",
+              "content": {
+                "word": "curriculum",
+                "pronunciation": "/kəˈrɪkjʊləm/",
+                "definition_cn": "课程（总称）",
+                "definition_en": "the subjects making up a course of study in a school or college",
+                "pos": "n.",
+                "collocations": [
+                  "curriculum design",
+                  "core curriculum",
+                  "curriculum vitae"
+                ],
+                "examples": [
+                  "The school is revising its curriculum to include more technology.",
+                  "A well-rounded curriculum includes arts and sciences."
+                ],
+                "common_error": "复数形式是 curricula 或 curriculums。",
+                "memory_tip": "cur-（跑）+ -culum（小）→ 小跑道 → 学习的课程"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k010",
+              "title": "plagiarism",
+              "type": "word",
+              "content": {
+                "word": "plagiarism",
+                "pronunciation": "/ˈpleɪdʒərɪzəm/",
+                "definition_cn": "剽窃，抄袭",
+                "definition_en": "the practice of taking someone else's work or ideas and passing them off as one's own",
+                "pos": "n.",
+                "collocations": [
+                  "commit plagiarism",
+                  "accuse of plagiarism",
+                  "plagiarism detection"
+                ],
+                "examples": [
+                  "Plagiarism is a serious academic offense.",
+                  "The software checks for plagiarism in student papers."
+                ],
+                "common_error": "注意拼写：plagiarism 不是 \"plagarism\"。",
+                "memory_tip": "plagi-（斜的）+ -arism → 斜着拿别人的东西 → 抄袭"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k011",
+              "title": "rigorous",
+              "type": "word",
+              "content": {
+                "word": "rigorous",
+                "pronunciation": "/ˈrɪɡərəs/",
+                "definition_cn": "严格的，严谨的",
+                "definition_en": "extremely thorough, exhaustive, or accurate",
+                "pos": "adj.",
+                "collocations": [
+                  "rigorous analysis",
+                  "rigorous training",
+                  "rigorous standards"
+                ],
+                "examples": [
+                  "The study underwent rigorous peer review.",
+                  "She maintained a rigorous exercise routine."
+                ],
+                "common_error": "不要与 \"vigorous\"（充满活力的）混淆。",
+                "memory_tip": "rigor（严格）+ -ous（形容词后缀）→ 严格的"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k012",
+              "title": "scrutiny",
+              "type": "word",
+              "content": {
+                "word": "scrutiny",
+                "pronunciation": "/ˈskruːtəni/",
+                "definition_cn": "仔细审查，监督",
+                "definition_en": "critical observation or examination",
+                "pos": "n.",
+                "collocations": [
+                  "under scrutiny",
+                  "public scrutiny",
+                  "close scrutiny"
+                ],
+                "examples": [
+                  "The proposal came under intense scrutiny.",
+                  "Every detail was subjected to scrutiny."
+                ],
+                "common_error": "注意拼写：scrutiny 不是 \"scrutinity\"。",
+                "memory_tip": "scrut-（检查）+ -iny → 仔细检查"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k011"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k013",
+              "title": "elucidate",
+              "type": "word",
+              "content": {
+                "word": "elucidate",
+                "pronunciation": "/ɪˈluːsɪdeɪt/",
+                "definition_cn": "阐明，解释",
+                "definition_en": "to make something clear; explain",
+                "pos": "v.",
+                "collocations": [
+                  "elucidate a point",
+                  "elucidate the meaning",
+                  "elucidate further"
+                ],
+                "examples": [
+                  "The professor elucidated the complex theory with examples.",
+                  "Can you elucidate your argument?"
+                ],
+                "common_error": "更正式的词，常用于学术写作。",
+                "memory_tip": "e-（出）+ lucid（清晰的）+ -ate（动词后缀）→ 使清晰出来 → 阐明"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作"
+              ]
+            },
+            {
+              "id": "k014",
+              "title": "extrapolate",
+              "type": "word",
+              "content": {
+                "word": "extrapolate",
+                "pronunciation": "/ɪkˈstræpəleɪt/",
+                "definition_cn": "推断，推知",
+                "definition_en": "to extend the application of (findings, conclusions, etc.) to unknown situations by assuming that existing trends will continue",
+                "pos": "v.",
+                "collocations": [
+                  "extrapolate from data",
+                  "extrapolate trends",
+                  "extrapolate results"
+                ],
+                "examples": [
+                  "We can extrapolate future population growth from current data.",
+                  "It is risky to extrapolate too far from limited evidence."
+                ],
+                "common_error": "不要与 \"interpolate\"（插入）混淆。",
+                "memory_tip": "extra-（外面）+ pol-（抛光，引申为点）+ -ate → 从已知点向外推 → 推断"
+              },
+              "difficulty": 5,
+              "prerequisites": [
+                "k001"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k015",
+              "title": "interdisciplinary",
+              "type": "word",
+              "content": {
+                "word": "interdisciplinary",
+                "pronunciation": "/ˌɪntərˈdɪsɪplɪnəri/",
+                "definition_cn": "跨学科的",
+                "definition_en": "relating to more than one branch of knowledge",
+                "pos": "adj.",
+                "collocations": [
+                  "interdisciplinary approach",
+                  "interdisciplinary research",
+                  "interdisciplinary studies"
+                ],
+                "examples": [
+                  "The university encourages interdisciplinary collaboration.",
+                  "This course takes an interdisciplinary perspective."
+                ],
+                "common_error": "注意拼写：interdisciplinary 不是 \"interdisplinary\"。",
+                "memory_tip": "inter-（在...之间）+ disciplinary（学科的）→ 学科之间的"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "technology",
+          "name": "科技与创新",
+          "description": "科技发展、AI、数字化相关词汇",
+          "knowledge_points": [
+            {
+              "id": "k016",
+              "title": "innovative",
+              "type": "word",
+              "content": {
+                "word": "innovative",
+                "pronunciation": "/ˈɪnəveɪtɪv/",
+                "definition_cn": "创新的，革新的",
+                "definition_en": "introducing or using new ideas, methods, or inventions",
+                "pos": "adj.",
+                "collocations": [
+                  "innovative technology",
+                  "innovative approach",
+                  "innovative design"
+                ],
+                "examples": [
+                  "The company is known for its innovative products.",
+                  "She proposed an innovative solution to the problem."
+                ],
+                "common_error": "不要与'novel'混淆，'novel'强调新奇，'innovative'强调引入新思想并带来改进。",
+                "memory_tip": "in（进入）+ nov（新）+ ative（形容词后缀）→ 进入新状态 → 创新的"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "写作",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k017",
+              "title": "breakthrough",
+              "type": "word",
+              "content": {
+                "word": "breakthrough",
+                "pronunciation": "/ˈbreɪkθruː/",
+                "definition_cn": "突破，重大发现",
+                "definition_en": "an important discovery or development that helps to solve a problem or achieve something",
+                "pos": "n.",
+                "collocations": [
+                  "scientific breakthrough",
+                  "technological breakthrough",
+                  "breakthrough in research"
+                ],
+                "examples": [
+                  "The new drug represents a major breakthrough in cancer treatment.",
+                  "The team achieved a breakthrough in artificial intelligence."
+                ],
+                "common_error": "不可数名词，但常与'a'连用表示一次突破。",
+                "memory_tip": "break（打破）+ through（穿过）→ 打破障碍穿过 → 突破"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k018",
+              "title": "automation",
+              "type": "word",
+              "content": {
+                "word": "automation",
+                "pronunciation": "/ˌɔːtəˈmeɪʃn/",
+                "definition_cn": "自动化",
+                "definition_en": "the use of machines and computers to do work that was previously done by people",
+                "pos": "n.",
+                "collocations": [
+                  "factory automation",
+                  "automation technology",
+                  "process automation"
+                ],
+                "examples": [
+                  "Automation has increased productivity in many industries.",
+                  "The rise of automation is changing the job market."
+                ],
+                "common_error": "注意与'automation'和'automatization'的区别，后者较少用。",
+                "memory_tip": "auto（自己）+ mation（名词后缀）→ 自己动 → 自动化"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k019",
+              "title": "digitalization",
+              "type": "word",
+              "content": {
+                "word": "digitalization",
+                "pronunciation": "/ˌdɪdʒɪtəlaɪˈzeɪʃn/",
+                "definition_cn": "数字化",
+                "definition_en": "the process of converting information into a digital format",
+                "pos": "n.",
+                "collocations": [
+                  "digitalization of business",
+                  "digitalization process",
+                  "accelerate digitalization"
+                ],
+                "examples": [
+                  "The digitalization of records has improved efficiency.",
+                  "Many companies are undergoing digitalization."
+                ],
+                "common_error": "不要与'digitization'混淆，后者更强调技术转换，前者包含更广泛的社会影响。",
+                "memory_tip": "digital（数字的）+ ization（名词后缀）→ 数字化"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k020",
+              "title": "algorithm",
+              "type": "word",
+              "content": {
+                "word": "algorithm",
+                "pronunciation": "/ˈælɡərɪðəm/",
+                "definition_cn": "算法",
+                "definition_en": "a set of rules or steps used to solve a problem or perform a computation",
+                "pos": "n.",
+                "collocations": [
+                  "machine learning algorithm",
+                  "search algorithm",
+                  "algorithm design"
+                ],
+                "examples": [
+                  "The algorithm determines the order of search results.",
+                  "Social media platforms use algorithms to recommend content."
+                ],
+                "common_error": "复数形式为algorithms，注意拼写。",
+                "memory_tip": "谐音'奥格瑞姆'，想象一个叫奥格的程序员写算法。"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k021",
+              "title": "artificial intelligence",
+              "type": "word",
+              "content": {
+                "word": "artificial intelligence",
+                "pronunciation": "/ˌɑːrtɪˈfɪʃl ɪnˈtelɪdʒəns/",
+                "definition_cn": "人工智能",
+                "definition_en": "the theory and development of computer systems able to perform tasks that normally require human intelligence",
+                "pos": "n.",
+                "collocations": [
+                  "artificial intelligence technology",
+                  "artificial intelligence research",
+                  "advances in artificial intelligence"
+                ],
+                "examples": [
+                  "Artificial intelligence is transforming healthcare.",
+                  "The company specializes in artificial intelligence."
+                ],
+                "common_error": "常缩写为AI，但正式写作中首次使用需全称。",
+                "memory_tip": "artificial（人造的）+ intelligence（智能）→ 人造智能 → 人工智能"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力",
+                "写作"
+              ]
+            },
+            {
+              "id": "k022",
+              "title": "cybersecurity",
+              "type": "word",
+              "content": {
+                "word": "cybersecurity",
+                "pronunciation": "/ˌsaɪbərsɪˈkjʊrəti/",
+                "definition_cn": "网络安全",
+                "definition_en": "the practice of protecting systems, networks, and programs from digital attacks",
+                "pos": "n.",
+                "collocations": [
+                  "cybersecurity measures",
+                  "cybersecurity threats",
+                  "improve cybersecurity"
+                ],
+                "examples": [
+                  "Cybersecurity is a top priority for the government.",
+                  "The company invested heavily in cybersecurity."
+                ],
+                "common_error": "不要与'cyber security'混淆，通常连写。",
+                "memory_tip": "cyber（网络）+ security（安全）→ 网络安全"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k023",
+              "title": "disruptive",
+              "type": "word",
+              "content": {
+                "word": "disruptive",
+                "pronunciation": "/dɪsˈrʌptɪv/",
+                "definition_cn": "颠覆性的，破坏性的",
+                "definition_en": "causing or tending to cause disruption, especially to existing systems or industries",
+                "pos": "adj.",
+                "collocations": [
+                  "disruptive technology",
+                  "disruptive innovation",
+                  "disruptive effect"
+                ],
+                "examples": [
+                  "The internet was a disruptive technology.",
+                  "Disruptive innovations often create new markets."
+                ],
+                "common_error": "在科技语境中常为褒义，指打破传统，但日常用语中可能含贬义。",
+                "memory_tip": "dis（分开）+ rupt（打破）+ ive（形容词后缀）→ 打破分开的 → 颠覆性的"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k024",
+              "title": "encryption",
+              "type": "word",
+              "content": {
+                "word": "encryption",
+                "pronunciation": "/ɪnˈkrɪpʃn/",
+                "definition_cn": "加密",
+                "definition_en": "the process of converting information into a code to prevent unauthorized access",
+                "pos": "n.",
+                "collocations": [
+                  "data encryption",
+                  "encryption technology",
+                  "encryption key"
+                ],
+                "examples": [
+                  "Encryption ensures the security of online transactions.",
+                  "The company uses strong encryption to protect user data."
+                ],
+                "common_error": "动词形式为encrypt，注意拼写。",
+                "memory_tip": "en（使）+ crypt（隐藏）+ ion（名词后缀）→ 使隐藏 → 加密"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k025",
+              "title": "paradigm",
+              "type": "word",
+              "content": {
+                "word": "paradigm",
+                "pronunciation": "/ˈpærədaɪm/",
+                "definition_cn": "范式，典范",
+                "definition_en": "a typical example or pattern of something; a model",
+                "pos": "n.",
+                "collocations": [
+                  "paradigm shift",
+                  "new paradigm",
+                  "scientific paradigm"
+                ],
+                "examples": [
+                  "The invention of the smartphone caused a paradigm shift in communication.",
+                  "This theory represents a new paradigm in physics."
+                ],
+                "common_error": "常与'paradigm shift'搭配，但单独使用也常见。注意发音。",
+                "memory_tip": "para（在旁边）+ digm（显示）→ 在旁边显示作为榜样 → 范式"
+              },
+              "difficulty": 5,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k026",
+              "title": "synergy",
+              "type": "word",
+              "content": {
+                "word": "synergy",
+                "pronunciation": "/ˈsɪnərdʒi/",
+                "definition_cn": "协同作用，协同效应",
+                "definition_en": "the interaction or cooperation of two or more organizations, substances, or other agents to produce a combined effect greater than the sum of their separate effects",
+                "pos": "n.",
+                "collocations": [
+                  "create synergy",
+                  "synergy effect",
+                  "business synergy"
+                ],
+                "examples": [
+                  "The merger created synergy between the two companies.",
+                  "Teamwork can produce synergy."
+                ],
+                "common_error": "不可数名词，但有时可数，如'synergies'。",
+                "memory_tip": "syn（一起）+ ergy（工作）→ 一起工作 → 协同效应"
+              },
+              "difficulty": 5,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k027",
+              "title": "quantum",
+              "type": "word",
+              "content": {
+                "word": "quantum",
+                "pronunciation": "/ˈkwɒntəm/",
+                "definition_cn": "量子",
+                "definition_en": "the smallest possible amount of a physical quantity that can exist independently",
+                "pos": "n.",
+                "collocations": [
+                  "quantum mechanics",
+                  "quantum computing",
+                  "quantum leap"
+                ],
+                "examples": [
+                  "Quantum computers have the potential to solve complex problems.",
+                  "Quantum physics is a fascinating field."
+                ],
+                "common_error": "复数形式为quanta，但常作定语用单数。",
+                "memory_tip": "谐音'宽腾'，想象量子让能量宽泛地腾跃。"
+              },
+              "difficulty": 5,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k028",
+              "title": "nanotechnology",
+              "type": "word",
+              "content": {
+                "word": "nanotechnology",
+                "pronunciation": "/ˌnænoʊtekˈnɑːlədʒi/",
+                "definition_cn": "纳米技术",
+                "definition_en": "the manipulation of matter on an atomic and molecular scale",
+                "pos": "n.",
+                "collocations": [
+                  "nanotechnology research",
+                  "nanotechnology applications",
+                  "advances in nanotechnology"
+                ],
+                "examples": [
+                  "Nanotechnology is used in medicine and electronics.",
+                  "The future of nanotechnology is promising."
+                ],
+                "common_error": "注意拼写，不要漏掉'o'。",
+                "memory_tip": "nano（纳米）+ technology（技术）→ 纳米技术"
+              },
+              "difficulty": 5,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k029",
+              "title": "blockchain",
+              "type": "word",
+              "content": {
+                "word": "blockchain",
+                "pronunciation": "/ˈblɒktʃeɪn/",
+                "definition_cn": "区块链",
+                "definition_en": "a digital ledger in which transactions are recorded chronologically and publicly",
+                "pos": "n.",
+                "collocations": [
+                  "blockchain technology",
+                  "blockchain network",
+                  "blockchain application"
+                ],
+                "examples": [
+                  "Blockchain is the underlying technology of cryptocurrencies.",
+                  "Many industries are exploring blockchain for secure transactions."
+                ],
+                "common_error": "通常作为一个词，不要分开写。",
+                "memory_tip": "block（块）+ chain（链）→ 区块链接 → 区块链"
+              },
+              "difficulty": 5,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "听力"
+              ]
+            },
+            {
+              "id": "k030",
+              "title": "autonomous",
+              "type": "word",
+              "content": {
+                "word": "autonomous",
+                "pronunciation": "/ɔːˈtɒnəməs/",
+                "definition_cn": "自主的，自治的",
+                "definition_en": "having the freedom to act independently; self-governing",
+                "pos": "adj.",
+                "collocations": [
+                  "autonomous vehicle",
+                  "autonomous system",
+                  "autonomous decision"
+                ],
+                "examples": [
+                  "Autonomous cars are being tested on public roads.",
+                  "The robot operates autonomously."
+                ],
+                "common_error": "不要与'automatic'混淆，autonomous强调自主决策，automatic强调自动执行。",
+                "memory_tip": "auto（自己）+ nomous（管理）→ 自己管理 → 自主的"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "society",
+          "name": "社会与文化",
+          "description": "社会现象、文化交流、公共议题相关词汇",
+          "knowledge_points": [
+            {
+              "id": "k031",
+              "title": "diversity",
+              "type": "word",
+              "content": {
+                "word": "diversity",
+                "pronunciation": "/daɪˈvɜːrsəti/",
+                "definition_cn": "多样性；差异",
+                "definition_en": "the state of being diverse; variety",
+                "pos": "n.",
+                "collocations": [
+                  "cultural diversity",
+                  "diversity of opinions",
+                  "biodiversity"
+                ],
+                "examples": [
+                  "The university promotes cultural diversity among its students.",
+                  "There is a great diversity of life in the rainforest."
+                ],
+                "common_error": "不要与 'diversion' 混淆，后者意为 '转移；消遣'。",
+                "memory_tip": "词根 'di-' 分开 + 'verse' 转 → 转开 → 不同方向 → 多样性。联想：'diverse city' 多样化的城市。"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k032",
+              "title": "multicultural",
+              "type": "word",
+              "content": {
+                "word": "multicultural",
+                "pronunciation": "/ˌmʌltiˈkʌltʃərəl/",
+                "definition_cn": "多元文化的",
+                "definition_en": "relating to or containing several cultural or ethnic groups",
+                "pos": "adj.",
+                "collocations": [
+                  "multicultural society",
+                  "multicultural education",
+                  "multiculturalism"
+                ],
+                "examples": [
+                  "London is a multicultural city with residents from many countries.",
+                  "The school offers a multicultural curriculum."
+                ],
+                "common_error": "注意拼写：multi- 前缀 + cultural，不要漏掉 'i'。",
+                "memory_tip": "multi- 多 + cultural 文化的 → 多元文化的。联想：'multi' 像 'many'，很多文化在一起。"
+              },
+              "difficulty": 3,
+              "prerequisites": [
+                "k031"
+              ],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k033",
+              "title": "ethnic",
+              "type": "word",
+              "content": {
+                "word": "ethnic",
+                "pronunciation": "/ˈeθnɪk/",
+                "definition_cn": "种族的；民族的",
+                "definition_en": "relating to a population subgroup with a common national or cultural tradition",
+                "pos": "adj.",
+                "collocations": [
+                  "ethnic group",
+                  "ethnic minority",
+                  "ethnic conflict"
+                ],
+                "examples": [
+                  "The country has many ethnic groups, each with its own language.",
+                  "Ethnic tensions sometimes lead to violence."
+                ],
+                "common_error": "不要与 'ethic'（伦理）混淆。",
+                "memory_tip": "谐音记忆：'爱死你' 但其实是 'ethnic'，联想：爱你的种族。"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k034",
+              "title": "segregation",
+              "type": "word",
+              "content": {
+                "word": "segregation",
+                "pronunciation": "/ˌseɡrɪˈɡeɪʃn/",
+                "definition_cn": "隔离；种族隔离",
+                "definition_en": "the action or state of setting someone or something apart from others",
+                "pos": "n.",
+                "collocations": [
+                  "racial segregation",
+                  "segregation policy",
+                  "gender segregation"
+                ],
+                "examples": [
+                  "The end of legal segregation was a major victory for civil rights.",
+                  "Segregation in schools was declared unconstitutional."
+                ],
+                "common_error": "注意拼写：seg- 不是 'segre'，中间有 'r'。",
+                "memory_tip": "词根 'se-' 分开 + 'greg' 群 + 'ation' → 从群中分开 → 隔离。联想：'segregate' 像 'separate'。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k033"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k035",
+              "title": "discrimination",
+              "type": "word",
+              "content": {
+                "word": "discrimination",
+                "pronunciation": "/dɪˌskrɪmɪˈneɪʃn/",
+                "definition_cn": "歧视；辨别",
+                "definition_en": "the unjust or prejudicial treatment of different categories of people",
+                "pos": "n.",
+                "collocations": [
+                  "racial discrimination",
+                  "gender discrimination",
+                  "discrimination against"
+                ],
+                "examples": [
+                  "Laws prohibit discrimination based on race or gender.",
+                  "He was a victim of age discrimination at work."
+                ],
+                "common_error": "注意：discrimination 有正面含义 '辨别力'，但考试中常考负面含义 '歧视'。",
+                "memory_tip": "词根 'crimin' 罪 → 歧视像一种罪。联想：'discriminate' 像 'distinguish'，但更负面。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k034"
+              ],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k036",
+              "title": "prejudice",
+              "type": "word",
+              "content": {
+                "word": "prejudice",
+                "pronunciation": "/ˈpredʒudɪs/",
+                "definition_cn": "偏见；成见",
+                "definition_en": "preconceived opinion that is not based on reason or actual experience",
+                "pos": "n.",
+                "collocations": [
+                  "racial prejudice",
+                  "prejudice against",
+                  "without prejudice"
+                ],
+                "examples": [
+                  "Prejudice can lead to unfair treatment of certain groups.",
+                  "He holds a prejudice against people from other countries."
+                ],
+                "common_error": "注意拼写：prejudice 不是 'predjudice'。",
+                "memory_tip": "pre- 预先 + judice 判断 → 预先判断 → 偏见。联想：'pre-judge' 就是偏见。"
+              },
+              "difficulty": 3,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k037",
+              "title": "stereotype",
+              "type": "word",
+              "content": {
+                "word": "stereotype",
+                "pronunciation": "/ˈsteriətaɪp/",
+                "definition_cn": "刻板印象；模式化观念",
+                "definition_en": "a widely held but fixed and oversimplified image or idea of a particular type of person or thing",
+                "pos": "n.",
+                "collocations": [
+                  "cultural stereotype",
+                  "gender stereotype",
+                  "break the stereotype"
+                ],
+                "examples": [
+                  "The movie reinforces negative stereotypes about certain ethnic groups.",
+                  "We should avoid stereotyping people based on their appearance."
+                ],
+                "common_error": "stereotype 可作动词，意为 '对...形成刻板印象'。",
+                "memory_tip": "stereo- 立体 + type 类型 → 立体的类型 → 刻板印象。联想：'stereo' 音响，总是放同样的歌 → 刻板。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k036"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k038",
+              "title": "assimilation",
+              "type": "word",
+              "content": {
+                "word": "assimilation",
+                "pronunciation": "/əˌsɪməˈleɪʃn/",
+                "definition_cn": "同化；吸收",
+                "definition_en": "the process of taking in and fully understanding information or ideas; the absorption and integration of people, ideas, or culture into a wider society",
+                "pos": "n.",
+                "collocations": [
+                  "cultural assimilation",
+                  "assimilation policy",
+                  "assimilation of immigrants"
+                ],
+                "examples": [
+                  "The assimilation of immigrants into the host society can be challenging.",
+                  "Language learning is key to cultural assimilation."
+                ],
+                "common_error": "注意拼写：assimilation 有两个 's' 和一个 'm'。",
+                "memory_tip": "as- 加强 + simil 相同 + ation → 使相同 → 同化。联想：'similar' 相似 → 同化就是变得相似。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k032"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k039",
+              "title": "integration",
+              "type": "word",
+              "content": {
+                "word": "integration",
+                "pronunciation": "/ˌɪntɪˈɡreɪʃn/",
+                "definition_cn": "整合；一体化",
+                "definition_en": "the action or process of integrating; the combination of parts into a whole",
+                "pos": "n.",
+                "collocations": [
+                  "social integration",
+                  "economic integration",
+                  "racial integration"
+                ],
+                "examples": [
+                  "The integration of different cultures enriches society.",
+                  "The company aims for the integration of new technologies."
+                ],
+                "common_error": "不要与 'integrity'（正直）混淆。",
+                "memory_tip": "integrate 来自 integer 完整 → 使完整 → 整合。联想：'integer' 整数，整合就是使成为整体。"
+              },
+              "difficulty": 3,
+              "prerequisites": [
+                "k038"
+              ],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k040",
+              "title": "marginalize",
+              "type": "word",
+              "content": {
+                "word": "marginalize",
+                "pronunciation": "/ˈmɑːrdʒɪnəlaɪz/",
+                "definition_cn": "边缘化；排斥",
+                "definition_en": "to treat (a person, group, or concept) as insignificant or peripheral",
+                "pos": "v.",
+                "collocations": [
+                  "marginalized groups",
+                  "marginalize minorities",
+                  "feel marginalized"
+                ],
+                "examples": [
+                  "The policy tends to marginalize the poor.",
+                  "Many indigenous communities have been marginalized."
+                ],
+                "common_error": "注意拼写：marginalize 不是 'marginalise'（英式拼写），但两者皆可。",
+                "memory_tip": "margin 边缘 + -al + -ize → 使处于边缘 → 边缘化。联想：'margin' 是页边空白，边缘化就是被推到空白处。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k035"
+              ],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            },
+            {
+              "id": "k041",
+              "title": "cosmopolitan",
+              "type": "word",
+              "content": {
+                "word": "cosmopolitan",
+                "pronunciation": "/ˌkɑːzməˈpɑːlɪtən/",
+                "definition_cn": "世界性的；四海一家的",
+                "definition_en": "familiar with and at ease in many different countries and cultures",
+                "pos": "adj.",
+                "collocations": [
+                  "cosmopolitan city",
+                  "cosmopolitan outlook",
+                  "cosmopolitan culture"
+                ],
+                "examples": [
+                  "New York is a cosmopolitan city with a diverse population.",
+                  "She has a cosmopolitan attitude and enjoys traveling."
+                ],
+                "common_error": "注意重音：cosmopolitan 重音在 'pol' 上。",
+                "memory_tip": "cosmo- 宇宙 + politan 城市 → 宇宙城市 → 世界性的。联想：'cosmos' 宇宙，'politician' 政治家，世界公民。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k032"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k042",
+              "title": "egalitarian",
+              "type": "word",
+              "content": {
+                "word": "egalitarian",
+                "pronunciation": "/ɪˌɡælɪˈteriən/",
+                "definition_cn": "平等主义的；主张平等的",
+                "definition_en": "relating to or believing in the principle that all people are equal and deserve equal rights and opportunities",
+                "pos": "adj.",
+                "collocations": [
+                  "egalitarian society",
+                  "egalitarian principles",
+                  "egalitarian distribution"
+                ],
+                "examples": [
+                  "The movement advocates for an egalitarian society.",
+                  "Egalitarian policies aim to reduce inequality."
+                ],
+                "common_error": "注意拼写：egalitarian 不是 'equalitarian'，但意思相近。",
+                "memory_tip": "来自法语 'égal' 平等 + -arian → 平等主义的。联想：'equal' 平等，'arian' 像 'Aryan'，但这里是平等。"
+              },
+              "difficulty": 5,
+              "prerequisites": [
+                "k035"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k043",
+              "title": "hierarchy",
+              "type": "word",
+              "content": {
+                "word": "hierarchy",
+                "pronunciation": "/ˈhaɪərɑːrki/",
+                "definition_cn": "等级制度；层级",
+                "definition_en": "a system in which members of an organization or society are ranked according to relative status or authority",
+                "pos": "n.",
+                "collocations": [
+                  "social hierarchy",
+                  "corporate hierarchy",
+                  "power hierarchy"
+                ],
+                "examples": [
+                  "The company has a strict hierarchy.",
+                  "In many societies, there is a clear hierarchy based on wealth."
+                ],
+                "common_error": "注意发音：重音在 'hi' 上，不是 'er'。",
+                "memory_tip": "hier- 神圣 + archy 统治 → 神圣的统治 → 等级制度。联想：'higher' 更高，archy 像 'arch' 拱门，等级高的在拱门之上。"
+              },
+              "difficulty": 4,
+              "prerequisites": [],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k044",
+              "title": "strata",
+              "type": "word",
+              "content": {
+                "word": "strata",
+                "pronunciation": "/ˈstreɪtə/",
+                "definition_cn": "阶层；地层（stratum的复数）",
+                "definition_en": "layers or levels of society; plural of stratum",
+                "pos": "n.",
+                "collocations": [
+                  "social strata",
+                  "different strata of society",
+                  "income strata"
+                ],
+                "examples": [
+                  "The study examined different social strata.",
+                  "Educational opportunities vary across strata."
+                ],
+                "common_error": "注意：strata 是复数，单数是 stratum。不要用错。",
+                "memory_tip": "stratum 来自拉丁语 '铺开' → 地层。联想：'street' 街道，不同阶层的人走在不同的街道。"
+              },
+              "difficulty": 4,
+              "prerequisites": [
+                "k043"
+              ],
+              "tags": [
+                "高频词",
+                "阅读"
+              ]
+            },
+            {
+              "id": "k045",
+              "title": "mobility",
+              "type": "word",
+              "content": {
+                "word": "mobility",
+                "pronunciation": "/moʊˈbɪləti/",
+                "definition_cn": "流动性；移动性",
+                "definition_en": "the ability to move or be moved freely and easily; the movement of people between social classes or geographic locations",
+                "pos": "n.",
+                "collocations": [
+                  "social mobility",
+                  "upward mobility",
+                  "economic mobility"
+                ],
+                "examples": [
+                  "Education is a key factor in social mobility.",
+                  "The country has high geographic mobility."
+                ],
+                "common_error": "注意拼写：mobility 不是 'mobilty'。",
+                "memory_tip": "mobile 移动 + -ity → 移动性。联想：'mobile phone' 移动电话，社会流动性就像移动电话一样可以改变位置。"
+              },
+              "difficulty": 3,
+              "prerequisites": [
+                "k044"
+              ],
+              "tags": [
+                "高频词",
+                "阅读",
+                "写作"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python_basics",
+      "name": "Python编程基础",
+      "description": "Python编程语言核心概念与数据结构",
+      "type": "concept",
+      "domains": [
+        {
+          "id": "basics",
+          "name": "基础语法",
+          "description": "变量、类型、控制流等基础概念",
+          "knowledge_points": [
+            {
+              "id": "k046",
+              "title": "变量与赋值",
+              "type": "concept",
+              "content": {
+                "definition": "变量是存储数据的容器，通过赋值操作将数据与名称关联。Python变量无需声明类型，类型由值动态决定。",
+                "syntax": "变量名 = 值",
+                "key_points": [
+                  "变量名区分大小写",
+                  "变量名不能以数字开头",
+                  "变量名应具有描述性"
+                ],
+                "common_methods": [
+                  "type()获取变量类型",
+                  "id()获取变量内存地址"
+                ],
+                "pitfalls": [
+                  "使用未赋值的变量会引发NameError",
+                  "变量名不能是Python关键字"
+                ],
+                "best_practice": "使用小写字母和下划线命名（snake_case），如 student_name。",
+                "example_code": "x = 5\nname = 'Alice'\nprint(x, name)"
+              },
+              "difficulty": 1,
+              "prerequisites": [],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k047",
+              "title": "基本数据类型",
+              "type": "concept",
+              "content": {
+                "definition": "Python基本数据类型包括整数(int)、浮点数(float)、字符串(str)、布尔值(bool)和空值(NoneType)。",
+                "syntax": "int: 42\nfloat: 3.14\nstr: 'hello'\nbool: True/False\nNone: None",
+                "key_points": [
+                  "整数和浮点数可进行算术运算",
+                  "字符串用引号括起",
+                  "布尔值只有True和False"
+                ],
+                "common_methods": [
+                  "int()、float()、str()类型转换",
+                  "isinstance()检查类型"
+                ],
+                "pitfalls": [
+                  "浮点数精度问题",
+                  "字符串与数字不能直接拼接"
+                ],
+                "best_practice": "使用类型转换函数明确转换类型，避免隐式转换。",
+                "example_code": "a = 10\nb = 3.5\nc = 'Age: '\nprint(c + str(a))"
+              },
+              "difficulty": 1,
+              "prerequisites": [
+                "k046"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k048",
+              "title": "算术运算符与表达式",
+              "type": "concept",
+              "content": {
+                "definition": "算术运算符用于执行数学运算，包括加(+)、减(-)、乘(*)、除(/)、整除(//)、取余(%)和幂(**)。",
+                "syntax": "result = 10 + 5 * 2",
+                "key_points": [
+                  "运算符优先级：幂>乘除>加减",
+                  "整除向下取整",
+                  "取余返回除法余数"
+                ],
+                "common_methods": [
+                  "pow()幂函数",
+                  "divmod()同时返回商和余数"
+                ],
+                "pitfalls": [
+                  "整数除法结果类型取决于Python版本（Python3返回浮点数）",
+                  "除以零引发ZeroDivisionError"
+                ],
+                "best_practice": "使用括号明确运算顺序，提高可读性。",
+                "example_code": "print(10 / 3)   # 3.333...\nprint(10 // 3)  # 3\nprint(10 % 3)   # 1"
+              },
+              "difficulty": 1,
+              "prerequisites": [
+                "k047"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k049",
+              "title": "字符串操作",
+              "type": "concept",
+              "content": {
+                "definition": "字符串是不可变的字符序列，支持索引、切片、拼接、格式化等操作。",
+                "syntax": "s = 'Hello'\ns[0]  # 'H'\ns[1:4]  # 'ell'",
+                "key_points": [
+                  "索引从0开始",
+                  "切片左闭右开",
+                  "字符串不可变"
+                ],
+                "common_methods": [
+                  "len()",
+                  "upper()",
+                  "lower()",
+                  "split()",
+                  "join()",
+                  "replace()"
+                ],
+                "pitfalls": [
+                  "索引越界引发IndexError",
+                  "字符串拼接使用+效率低，应使用join"
+                ],
+                "best_practice": "大量字符串拼接使用str.join()方法。",
+                "example_code": "name = 'Alice'\ngreeting = f'Hello, {name}!'  # f-string\nprint(greeting)"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k047"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k050",
+              "title": "布尔运算与比较运算符",
+              "type": "concept",
+              "content": {
+                "definition": "布尔运算包括and、or、not，比较运算符包括==、!=、<、>、<=、>=，返回布尔值True或False。",
+                "syntax": "a = 5 > 3  # True\nb = (a and True)  # True",
+                "key_points": [
+                  "and: 全真才真",
+                  "or: 一真即真",
+                  "not: 取反",
+                  "比较运算符可链式使用"
+                ],
+                "common_methods": [
+                  "bool()转换",
+                  "all()、any()"
+                ],
+                "pitfalls": [
+                  "==与=混淆",
+                  "浮点数相等比较应使用abs(a-b)<epsilon"
+                ],
+                "best_practice": "避免与True/False直接比较，直接使用变量本身。",
+                "example_code": "age = 18\nif age >= 18:\n    print('Adult')"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k047"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k051",
+              "title": "条件语句（if-elif-else）",
+              "type": "concept",
+              "content": {
+                "definition": "条件语句根据条件表达式的真假执行不同的代码块。",
+                "syntax": "if condition:\n    pass\nelif condition:\n    pass\nelse:\n    pass",
+                "key_points": [
+                  "条件表达式后加冒号",
+                  "代码块缩进一致",
+                  "elif和else可选"
+                ],
+                "common_methods": [
+                  "三元表达式: x if condition else y"
+                ],
+                "pitfalls": [
+                  "忘记冒号",
+                  "缩进错误",
+                  "条件判断顺序错误"
+                ],
+                "best_practice": "避免深层嵌套，可提前返回或使用字典映射。",
+                "example_code": "score = 85\nif score >= 90:\n    grade = 'A'\nelif score >= 80:\n    grade = 'B'\nelse:\n    grade = 'C'\nprint(grade)"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k050"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k052",
+              "title": "循环（for和while）",
+              "type": "concept",
+              "content": {
+                "definition": "for循环用于遍历可迭代对象，while循环根据条件重复执行代码块。",
+                "syntax": "for item in iterable:\n    pass\nwhile condition:\n    pass",
+                "key_points": [
+                  "for循环常用range()",
+                  "while注意终止条件避免死循环",
+                  "break跳出循环，continue跳过本次"
+                ],
+                "common_methods": [
+                  "enumerate()获取索引",
+                  "zip()并行迭代"
+                ],
+                "pitfalls": [
+                  "修改迭代对象导致意外行为",
+                  "无限循环"
+                ],
+                "best_practice": "优先使用for循环，除非需要无限循环或条件复杂。",
+                "example_code": "for i in range(5):\n    print(i)\n\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k049",
+                "k051"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k053",
+              "title": "列表（List）基础",
+              "type": "concept",
+              "content": {
+                "definition": "列表是有序、可变的元素集合，用方括号表示，元素类型可不同。",
+                "syntax": "lst = [1, 'a', 3.14]",
+                "key_points": [
+                  "索引从0开始",
+                  "支持切片",
+                  "列表可变（增删改）"
+                ],
+                "common_methods": [
+                  "append()",
+                  "extend()",
+                  "insert()",
+                  "remove()",
+                  "pop()",
+                  "sort()",
+                  "reverse()"
+                ],
+                "pitfalls": [
+                  "浅拷贝问题",
+                  "索引越界"
+                ],
+                "best_practice": "使用列表推导式创建简单列表更简洁。",
+                "example_code": "fruits = ['apple', 'banana', 'cherry']\nfruits.append('orange')\nprint(fruits[1:3])"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k047",
+                "k052"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k054",
+              "title": "字典（Dict）基础",
+              "type": "concept",
+              "content": {
+                "definition": "字典是无序的键值对集合，键必须唯一且不可变（如字符串、数字、元组）。",
+                "syntax": "d = {'key': 'value', 1: 'one'}",
+                "key_points": [
+                  "键值对用冒号分隔",
+                  "通过键访问值",
+                  "字典可变"
+                ],
+                "common_methods": [
+                  "keys()",
+                  "values()",
+                  "items()",
+                  "get()",
+                  "update()",
+                  "pop()"
+                ],
+                "pitfalls": [
+                  "访问不存在的键引发KeyError",
+                  "键必须是不可变类型"
+                ],
+                "best_practice": "使用get()方法安全访问键，提供默认值。",
+                "example_code": "student = {'name': 'Alice', 'age': 20}\nprint(student.get('grade', 'N/A'))"
+              },
+              "difficulty": 2,
+              "prerequisites": [
+                "k047",
+                "k052"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            },
+            {
+              "id": "k055",
+              "title": "函数定义与调用",
+              "type": "concept",
+              "content": {
+                "definition": "函数是组织好的、可重复使用的代码块，用于实现单一功能。",
+                "syntax": "def function_name(parameters):\n    \"\"\"docstring\"\"\"\n    # code\n    return value",
+                "key_points": [
+                  "def关键字",
+                  "参数可有默认值",
+                  "return可选",
+                  "函数是对象"
+                ],
+                "common_methods": [
+                  "位置参数",
+                  "关键字参数",
+                  "可变参数(*args, **kwargs)"
+                ],
+                "pitfalls": [
+                  "可变对象作为默认参数",
+                  "忘记return导致返回None"
+                ],
+                "best_practice": "函数应单一职责，命名使用动词或动词短语。",
+                "example_code": "def add(a, b):\n    return a + b\n\nresult = add(3, 5)\nprint(result)"
+              },
+              "difficulty": 3,
+              "prerequisites": [
+                "k048",
+                "k051"
+              ],
+              "tags": [
+                "基础",
+                "必知"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "data_structures",
+          "name": "数据结构",
+          "description": "列表、字典、元组、集合等核心数据结构",
+          "knowledge_points": []
+        }
+      ]
+    }
+  ]
+}
