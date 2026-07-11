@@ -50,11 +50,14 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
+      - name: Install system deps
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
       - name: Install dependencies
-        run: pip install -r requirements.txt -r requirements-dev.txt
+        run: pip install --upgrade pip && pip install -r requirements.txt -r requirements-dev.txt
 
       - name: Run tests
-        run: python -m pytest tests/ -v --tb=short
+        run: python -m pytest tests/ -v --tb=long
         env:
           DEEPSEEK_API_KEY: sk-test-placeholder
           DEEPSEEK_BASE_URL: https://api.deepseek.com
