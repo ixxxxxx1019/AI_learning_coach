@@ -2,6 +2,7 @@
 
 import os
 import tempfile
+import threading
 from pathlib import Path
 
 import pytest
@@ -18,7 +19,7 @@ def auth():
     mgr._filepath = path
     mgr._users = {}
     mgr._tokens = {}
-    mgr._lock = type(mgr._lock)()  # new lock
+    mgr._lock = threading.Lock()  # new lock (不能直接用 _thread.lock)
     AuthManager._instance = mgr
     yield mgr
     os.unlink(path)
