@@ -55,3 +55,16 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(router)
+
+
+# 根路径 — 重定向到 API 文档
+@app.get("/")
+def root():
+    """根路径 → 返回 API 信息。"""
+    return {
+        "app": f"{settings.app_name} API",
+        "version": "0.2.0",
+        "api_prefix": "/api",
+        "docs": "/docs",
+        "health": "/api/health",
+    }

@@ -34,6 +34,32 @@ _sessions: dict[str, dict[str, Any]] = {}
 
 
 # ============================================================
+# Root（防止 404 困惑）
+# ============================================================
+
+
+@router.get("")
+@router.get("/")
+def api_root():
+    """API 根路径 — 返回可用端点列表。"""
+    return {
+        "app": "AI学习教练 API",
+        "version": "0.2.0",
+        "endpoints": {
+            "GET  /api": "此列表",
+            "GET  /api/health": "健康检查",
+            "GET  /api/subjects": "学科列表",
+            "GET  /api/subjects/{id}/kps": "学科知识点",
+            "POST /api/sessions": "创建学习 session",
+            "GET  /api/sessions/{id}": "查询 session 状态",
+            "POST /api/sessions/{id}/answers": "提交答案",
+            "DELETE /api/sessions/{id}": "删除 session",
+        },
+        "docs": "/docs",
+    }
+
+
+# ============================================================
 # Health
 # ============================================================
 
