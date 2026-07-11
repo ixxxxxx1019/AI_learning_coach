@@ -1,8 +1,8 @@
 """
 用户认证模块 —— 注册 / 登入 / Token 验证。
 
-轻量级实现：JSON 文件存储 + bcrypt 密码哈希 + SHA256 Token。
-无需外部数据库依赖，适合单机/小规模部署。
+轻量级实现：JSON 文件存储 + PBKDF2 密码哈希 + SHA256 Token。
+零外部依赖（纯 Python 标准库），适合单机/小规模部署。
 
 Usage:
     from utils.auth import AuthManager
@@ -21,8 +21,6 @@ from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Optional
-
-import bcrypt as _bcrypt
 
 from config.logging_config import get_logger
 
@@ -43,6 +41,28 @@ class User:
     last_login: str = ""
     token: str = ""
     token_created: str = ""
+
+
+# ---- 密码哈希（PBKDF2 — 纯标准库，零依赖） ----
+
+
+def _hash_password(password: str) -> str:
+    """PBKDF2-SHA256 密码哈希 → 存储格式: iterations$salt$hash"""
+    salt = secrets.token_hex(16)
+    iterations = 600_000
+    dk = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), iterations)
+    return f"{iterations}${salt}${dk.hex()}"
+
+
+def _verify_password(password: str, stored: str) -> bool:
+    """验证密码是否匹配存储的哈希值。"""
+    try:
+        iterations_str, salt, hash_hex = stored.split("$")
+        iterations = int(iterations_str)
+        dk = hashlib.pbkdf2_hmac("sha256", password.encode(), salt.encode(), iterations)
+        return secrets.compare_digest(dk.hex(), hash_hex)
+    except (ValueError, AttributeError):
+        return False
 
 
 class AuthManager:
@@ -100,7 +120,7 @@ class AuthManager:
             user = User(
                 user_id=user_id,
                 username=username,
-                password_hash=_bcrypt.hashpw(password.encode(), _bcrypt.gensalt()).decode(),
+                password_hash=_hash_password(password),
                 created_at=datetime.now().isoformat(),
             )
             token = self._generate_token(user)
@@ -128,7 +148,7 @@ class AuthManager:
             if not user:
                 raise ValueError("用户名或密码错误")
 
-            if not _bcrypt.checkpw(password.encode(), user.password_hash.encode()):
+            if not _verify_password(password, user.password_hash):
                 raise ValueError("用户名或密码错误")
 
             # 生成新 token
