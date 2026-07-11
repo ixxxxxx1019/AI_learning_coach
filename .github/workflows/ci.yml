@@ -12,7 +12,7 @@ on:
     branches: [master, main]
   pull_request:
     branches: [master, main]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch:
 
 env:
   PYTHON_VERSION: "3.12"
@@ -30,7 +30,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install lint tools
-        run: pip install ruff
+        run: pip install ruff~=0.15.0
 
       - name: Run Ruff (lint)
         run: python -m ruff check .
@@ -51,7 +51,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt -r requirements-dev.txt
 
       - name: Run tests
         run: python -m pytest tests/ -v --tb=short
