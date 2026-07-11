@@ -74,6 +74,7 @@ class TestLogin:
         last_login_after_register = auth.get_user("alice").last_login
 
         import time
+
         time.sleep(0.01)
 
         auth.login("alice", "secret123")
