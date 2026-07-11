@@ -1,0 +1,46 @@
+# Docker 构建排除 — 减小镜像体积，防止泄露敏感信息
+
+# 环境变量（通过 --env-file 或 docker-compose 注入）
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Claude Code
+.claude/
+
+# 日志
+logs/
+*.log
+
+# 运行时数据
+data/user_progress.json
+data/checkpoints.db
+data/.llm_cache/
+
+# Jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# 测试
+tests/
+.pytest_cache/
+
+# 文档
+README.md

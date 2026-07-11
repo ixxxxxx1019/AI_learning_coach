@@ -1,8 +1,30 @@
-  streamlit>=1.28.0
-  openai>=1.3.0
-  python-dotenv>=1.0.0
-  langchain>=0.3.0
-  langchain-openai>=0.2.0
-  langgraph>=0.2.0
-  pydantic>=2.0.0
-  langchain-core
+# ============================================================
+# AI学习教练 — 生产依赖
+# ============================================================
+# 安装：pip install -r requirements.txt
+# 开发依赖：pip install -r requirements-dev.txt
+# ============================================================
+
+# --- LLM & AI Framework ---
+streamlit>=1.58.0
+langchain>=1.3.0
+langchain-core>=1.4.0
+langchain-openai>=1.3.0
+langgraph>=1.2.0
+langgraph-checkpoint>=4.1.0
+pydantic>=2.13.0
+openai>=2.44.0
+python-dotenv>=1.2.0
+
+# --- 配置管理 ---
+pydantic-settings>=2.0.0
+pyyaml>=6.0
+
+# --- 结构化日志 ---
+structlog>=24.0.0
+
+# --- LLM 韧性（重试/熔断） ---
+tenacity>=9.0.0
+
+# --- 缓存（可选，降级优雅处理） ---
+diskcache>=5.0.0

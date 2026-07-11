@@ -4,36 +4,18 @@
   职责：根据 Planner 生成的阶段计划（StudyPhase），
        生成详细的 Markdown 教学内容。
 """
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+
 from agent.llm import get_llm
+from config.logging_config import get_logger
+from config.prompts import PromptLoader
 
-TUTOR_SYSTEM = """你是一个专业的AI讲师，擅长用生动易懂的方式讲解知识。
-
-  ## 你的教学风格
-  - 用中文讲解，内容清晰有条理
-  - 对每个知识点提供：定义、例句/示例、记忆技巧
-  - 如果知识点之间有联系，要明确指出
-  - 用 Markdown 格式组织内容，包含标题、列表、加粗等
-  - 对于词汇类知识，提供：词性、中文释义、英文例句+中文翻译、近义词辨析
-
-  ## 输出格式
-  用 Markdown 组织你的教学内容，结构如下：
-  ```markdown
-  ## 知识点名称1
-  ### 定义
-  ...
-  ### 示例
-  ...
-  ### 记忆技巧
-  ...
-
-  ## 知识点名称2
-  ...
-  """
+logger = get_logger(__name__)
+_loader = PromptLoader()
 
 TUTOR_PROMPT = ChatPromptTemplate.from_messages([
-    ("system", TUTOR_SYSTEM),
+    ("system", _loader.get_system_prompt("tutor")),
     ("user", "{user_input}"),
 ])
 
@@ -52,6 +34,9 @@ def create_tutor():
     return TUTOR_PROMPT | llm | StrOutputParser()
 
 if __name__ == "__main__":
+      from config.logging_config import setup_logging
+      setup_logging()
+
       test_input = """
       请讲解以下CET6词汇知识点，当前是 learn_new 阶段：
 
@@ -63,6 +48,7 @@ if __name__ == "__main__":
 
       tutor = create_tutor()
       result = tutor.invoke({"user_input": test_input})
+      logger.info("tutor_test_result", content_preview=result[:200])
       print(result)
 
 

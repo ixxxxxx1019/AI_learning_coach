@@ -1,5 +1,7 @@
-from pydantic import BaseModel,Field
-from typing import TypedDict,Optional
+from typing import TypedDict
+
+from pydantic import BaseModel, Field
+
 
 class StudyPhase(BaseModel):
     """学习计划的一个阶段"""

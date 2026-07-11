@@ -5,9 +5,17 @@ LangGraph 管理后端流程，Streamlit 负责 UI 交互。
 st.session_state 在多次页面刷新间保持 Graph 状态。
 """
 
+import uuid
+
 import streamlit as st
+
 from agent.graph import create_graph
-from utils.knowledge_graph import load_kg, list_subjects, get_subject
+from config.logging_config import get_logger, setup_logging
+from utils.knowledge_graph import list_subjects, load_kg
+
+# 全局初始化 structlog
+setup_logging()
+logger = get_logger(__name__)
 
 # ============================================================
 # 页面配置
@@ -26,8 +34,10 @@ st.caption("基于 LangGraph 的智能学习系统 —— 规划 → 讲解 → 
 # ============================================================
 if "graph" not in st.session_state:
     st.session_state.graph = create_graph()
+if "thread_id" not in st.session_state:
+    st.session_state.thread_id = str(uuid.uuid4())[:8]
 if "config" not in st.session_state:
-    st.session_state.config = {"configurable": {"thread_id": "session-1"}}
+    st.session_state.config = {"configurable": {"thread_id": st.session_state.thread_id}}
 if "phase" not in st.session_state:
     st.session_state.phase = "setup"
 
@@ -67,6 +77,12 @@ if st.session_state.phase == "setup":
                 "time_minutes": time_minutes,
             }
 
+            logger.info(
+                "session_start",
+                subject=selected["id"],
+                time=time_minutes,
+            )
+
             result = st.session_state.graph.invoke(
                 initial_state,
                 st.session_state.config,
@@ -76,6 +92,14 @@ if st.session_state.phase == "setup":
             st.session_state.tutor_results = result.get("tutor_results", [])
             st.session_state.quiz_data = result.get("quiz_data", {})
             st.session_state.phase = "learning"
+
+            logger.info(
+                "phase_transition",
+                from_phase="setup",
+                to_phase="learning",
+                tutor_phases=len(result.get("tutor_results", [])),
+                quiz_count=len(result.get("quiz_data", {}).get("questions", [])),
+            )
 
         st.rerun()
 
@@ -146,6 +170,8 @@ elif st.session_state.phase in ("learning", "quiz"):
                 qid = q["id"]
                 user_answers[qid] = st.session_state.get(f"answer_{qid}", "") or ""
 
+            logger.info("submitting_answers", answer_count=len(user_answers))
+
             st.session_state.graph.update_state(
                 st.session_state.config,
                 {"user_answers": user_answers},
@@ -173,7 +199,7 @@ elif st.session_state.phase == "result":
     st.success("✅ 本轮学习完成！")
 
     # ---- 成绩总览 ----
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("总分", f"{graded.get('overall_score', 0):.0f} 分")
     with col2:
@@ -183,6 +209,8 @@ elif st.session_state.phase == "result":
         )
     with col3:
         st.metric("综合评分", f"{diagnosis.get('overall_score', 0):.0f} 分")
+    with col4:
+        st.metric("会话ID", st.session_state.get("thread_id", "N/A")[:8])
 
     st.divider()
 

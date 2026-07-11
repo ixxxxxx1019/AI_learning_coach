@@ -6,33 +6,17 @@ Planner Agent —— 学习规划师。
       生成结构化的 StudyPlan。
 """
 from langchain_core.prompts import ChatPromptTemplate
+
 from agent.llm import get_structured_llm
 from agent.models import StudyPlan
+from config.logging_config import get_logger
+from config.prompts import PromptLoader
 
-PLANNER_SYSTEM = """你是一个专业的AI学习规划师。你的任务是根据学生的学习情况，制定个性化的学习计划。
-
- ## 你的工作流程
- 1. 分析学生提供的知识点列表和依赖关系
- 2. 评估哪些知识点应该优先学习（考虑依赖链）
- 3. 将学习过程划分为 review（复习）、learn_new（学新知识）、quiz（测验）三个阶段
- 4. 为每个阶段分配合理的时长
-
- ## 规划原则
- - 有前置依赖未掌握的知识点，必须先复习前置知识
- - 每次学习应该包含复习→新学→测验的完整循环
- - 难度高的知识点分配更多时间
- - 每个阶段的时间分配要合理，总时长不超过用户设定的时间
-
- ## 输出格式
- 你必须严格按照 StudyPlan 的 JSON 结构输出，包含：
- - subject_name: 学科名称
- - total_minutes: 总时长
- - rationale: 规划理由
- - phases: 阶段列表，每个阶段包含 type、name、kp_ids、estimated_minutes、instruction
- """
+logger = get_logger(__name__)
+_loader = PromptLoader()
 
 PLANNER_PROMPT = ChatPromptTemplate.from_messages([
-      ("system", PLANNER_SYSTEM),
+      ("system", _loader.get_system_prompt("planner")),
       ("user", "{user_input}"),
   ])
 
@@ -52,6 +36,9 @@ def create_planner():
     return PLANNER_PROMPT | structured_llm
 
 if __name__ == "__main__":
+      from config.logging_config import setup_logging
+      setup_logging()
+
       # 模拟用户输入
       test_input = """
       学科：CET6英语词汇
@@ -73,14 +60,17 @@ if __name__ == "__main__":
       planner = create_planner()
       plan = planner.invoke({"user_input": test_input})
 
-      print("=" * 60)
-      print(f"学科: {plan.subject_name}")
-      print(f"总时长: {plan.total_minutes}分钟")
-      print(f"规划理由: {plan.rationale}")
-      print(f"阶段数: {len(plan.phases)}")
+      logger.info("planner_test_result")
+      logger.info("subject", name=plan.subject_name)
+      logger.info("total_minutes", minutes=plan.total_minutes)
+      logger.info("rationale", text=plan.rationale)
+      logger.info("phase_count", count=len(plan.phases))
       for i, phase in enumerate(plan.phases):
-          print(f"\n--- 阶段{i+1}: {phase.name} ---")
-          print(f"  类型: {phase.type}")
-          print(f"  知识点: {phase.kp_ids}")
-          print(f"  预计时长: {phase.estimated_minutes}分钟")
-          print(f"  指导: {phase.instruction}")
+          logger.info(
+              f"phase_{i+1}",
+              name=phase.name,
+              type=phase.type,
+              kp_ids=phase.kp_ids,
+              estimated_minutes=phase.estimated_minutes,
+              instruction=phase.instruction,
+          )

@@ -1,0 +1,95 @@
+# ============================================================
+# CI/CD Pipeline
+# ============================================================
+# 触发：push / PR 到 master 或 main 分支
+# 流程：Lint → Test → Build → Deploy (placeholder)
+# ============================================================
+
+name: CI/CD
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:  # 允许手动触发
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  # ---- Lint ----
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install lint tools
+        run: pip install ruff
+
+      - name: Run Ruff (lint)
+        run: python -m ruff check .
+
+      - name: Run Ruff (format check)
+        run: python -m ruff format --check .
+
+  # ---- Test ----
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest tests/ -v --tb=short
+        env:
+          DEEPSEEK_API_KEY: sk-test-placeholder
+          DEEPSEEK_BASE_URL: https://api.deepseek.com
+
+  # ---- Build ----
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ai-coach-langchain .
+
+      - name: Health check (smoke test)
+        run: |
+          docker run --rm -d --name ai-coach-test \
+            -e DEEPSEEK_API_KEY=sk-test-placeholder \
+            -p 8501:8501 \
+            ai-coach-langchain
+          sleep 5
+          docker exec ai-coach-test python health.py
+          docker stop ai-coach-test
+
+  # ---- Deploy (placeholder) ----
+  deploy:
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy placeholder
+        run: |
+          echo "========================================="
+          echo "Deploy step — configure per your target:"
+          echo "  Streamlit Cloud: Auto-deploy on push"
+          echo "  VPS: rsync + systemctl restart"
+          echo "  Cloud Run: gcloud run deploy"
+          echo "========================================="

@@ -1,10 +1,14 @@
 # 环境变量 - 包含 API Key，绝对不能提交
 .env
+!.env.example
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
+*.egg-info/
+dist/
+build/
 .venv/
 venv/
 
@@ -23,3 +27,17 @@ Thumbs.db
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Claude Code
+.claude/
+
+# Logs
+logs/
+*.log
+
+# Docker
+.docker/
+
+# 数据（运行时生成）
+data/user_progress.json
+data/checkpoints.db

@@ -9,7 +9,6 @@
 
 import json
 from pathlib import Path
-from typing import Optional
 
 # ------------------------------------------------------------------
 # 路径常量
@@ -22,7 +21,7 @@ _DEFAULT_KG_PATH = Path(__file__).parent.parent / "data" / "knowledge_graph.json
 # 加载
 # ------------------------------------------------------------------
 
-def load_kg(path: Optional[Path] = None) -> dict:
+def load_kg(path: Path | None = None) -> dict:
     """加载知识图谱 JSON 文件。
 
     Args:
@@ -32,11 +31,11 @@ def load_kg(path: Optional[Path] = None) -> dict:
         完整的知识图谱 dict
     """
     filepath = path or _DEFAULT_KG_PATH
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         return json.load(f)
 
 
-def save_kg(kg: dict, path: Optional[Path] = None):
+def save_kg(kg: dict, path: Path | None = None):
     """保存知识图谱到 JSON 文件。"""
     filepath = path or _DEFAULT_KG_PATH
     with open(filepath, "w", encoding="utf-8") as f:
@@ -66,7 +65,7 @@ def list_subjects(kg: dict) -> list[dict]:
     ]
 
 
-def get_subject(kg: dict, subject_id: str) -> Optional[dict]:
+def get_subject(kg: dict, subject_id: str) -> dict | None:
     """按 ID 获取学科完整数据。"""
     for s in kg.get("subjects", []):
         if s["id"] == subject_id:
@@ -98,7 +97,7 @@ def list_domains(kg: dict, subject_id: str) -> list[dict]:
 # Knowledge Point 查询
 # ------------------------------------------------------------------
 
-def get_kp(kg: dict, kp_id: str) -> Optional[dict]:
+def get_kp(kg: dict, kp_id: str) -> dict | None:
     """按 ID 跨所有 subject 查找知识点。"""
     for s in kg.get("subjects", []):
         for d in s.get("domains", []):
@@ -115,7 +114,7 @@ def get_kp(kg: dict, kp_id: str) -> Optional[dict]:
     return None
 
 
-def list_all_kps(kg: dict, subject_id: Optional[str] = None) -> list[dict]:
+def list_all_kps(kg: dict, subject_id: str | None = None) -> list[dict]:
     """列出所有知识点（可选按 subject 过滤）。
 
     Returns:
@@ -221,11 +220,11 @@ def find_weak_root_causes(
 
 def filter_kps(
     kg: dict,
-    subject_id: Optional[str] = None,
-    domain_id: Optional[str] = None,
-    min_difficulty: Optional[int] = None,
-    max_difficulty: Optional[int] = None,
-    tags: Optional[list[str]] = None,
+    subject_id: str | None = None,
+    domain_id: str | None = None,
+    min_difficulty: int | None = None,
+    max_difficulty: int | None = None,
+    tags: list[str] | None = None,
 ) -> list[dict]:
     """按条件筛选知识点。"""
     all_kps = list_all_kps(kg, subject_id=subject_id)
@@ -286,7 +285,7 @@ def get_learnable_kps(
 # 统计
 # ------------------------------------------------------------------
 
-def get_kp_count(kg: dict, subject_id: Optional[str] = None) -> int:
+def get_kp_count(kg: dict, subject_id: str | None = None) -> int:
     """统计知识点总数。"""
     return len(list_all_kps(kg, subject_id=subject_id))
 
@@ -362,10 +361,10 @@ if __name__ == "__main__":
 
     # 测试 get_learnable_kps
     learnable = get_learnable_kps(sample_kg, "cet6_vocab", mastered_ids=set(), count=5)
-    print(f"6. 可学习的新知识点: {[l['title'] for l in learnable]}")
+    print(f"6. 可学习的新知识点: {[kp['title'] for kp in learnable]}")
 
     # 测试 get_learnable_kps with k001 mastered
     learnable2 = get_learnable_kps(sample_kg, "cet6_vocab", mastered_ids={"k001"}, count=5)
-    print(f"7. 掌握k001后可学: {[l['title'] for l in learnable2]}")
+    print(f"7. 掌握k001后可学: {[kp['title'] for kp in learnable2]}")
 
     print("\n[OK] All knowledge graph tests passed!")
