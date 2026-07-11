@@ -5,7 +5,6 @@ FastAPI 依赖注入。
 避免每次请求都重新创建。
 """
 
-
 from agent.graph import create_graph
 from config.logging_config import get_logger
 from utils.knowledge_graph import load_kg
