@@ -4,7 +4,8 @@
 # 多阶段构建：builder 安装依赖，runtime 最小化镜像
 #
 # 构建：docker build -t ai-coach-langchain .
-# 运行：docker run -p 8501:8501 --env-file .env ai-coach-langchain
+# 运行：docker run -p 8000:8000 -p 8501:8501 --env-file .env ai-coach-langchain
+#      或单独启动：docker run ... ai-coach-langchain --api-only
 # ============================================================
 
 # ---- Builder Stage ----
@@ -39,13 +40,9 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
 USER appuser
-EXPOSE 8501
+EXPOSE 8000 8501
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
     CMD python health.py || exit 1
 
-CMD ["streamlit", "run", "app.py", \
-     "--server.port=8501", \
-     "--server.address=0.0.0.0", \
-     "--server.headless=true", \
-     "--browser.gatherUsageStats=false"]
+CMD ["python", "run.py"]

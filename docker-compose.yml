@@ -11,7 +11,8 @@ services:
     build: .
     container_name: ai-coach-langchain
     ports:
-      - "8501:8501"
+      - "8000:8000"  # FastAPI REST API
+      - "8501:8501"  # Streamlit Web UI
     env_file:
       - .env
     volumes:

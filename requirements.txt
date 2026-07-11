@@ -28,3 +28,7 @@ tenacity>=9.0.0
 
 # --- 缓存（可选，降级优雅处理） ---
 diskcache>=5.0.0
+
+# --- REST API ---
+fastapi>=0.115.0
+uvicorn>=0.30.0
