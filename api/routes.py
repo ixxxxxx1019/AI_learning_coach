@@ -4,33 +4,53 @@ API 路由定义。
 所有 /api/* 端点在此集中管理。
 """
 
-import uuid
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from api.deps import get_graph, get_kg
 from api.schemas import (
+    AuthResponse,
     CreateSessionRequest,
     HealthResponse,
     KnowledgePointInfo,
+    LoginRequest,
+    RegisterRequest,
     SessionCreatedResponse,
     SessionStatusResponse,
     SubjectInfo,
     SubmitAnswersRequest,
     SubmitAnswersResponse,
+    UserProfile,
 )
 from config.logging_config import get_logger
 from health import health_check
+from utils.auth import AuthManager
 from utils.knowledge_graph import list_all_kps, list_subjects
+from utils.progress_store import ProgressStore
 
 logger = get_logger(__name__)
 
 router = APIRouter(prefix="/api")
+auth = AuthManager()
+progress_store = ProgressStore()
+security = HTTPBearer()
 
 # ---- 内存 session 存储（用于快速查询 session 状态） ----
 # key: session_id (thread_id), value: {"phase": "quiz"|"result", ...}
 _sessions: dict[str, dict[str, Any]] = {}
+
+
+# ---- Token 依赖 ----
+def get_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+) -> str:
+    """从 Bearer token 验证用户身份，返回 user_id。"""
+    user = auth.validate_token(credentials.credentials)
+    if not user:
+        raise HTTPException(status_code=401, detail="无效或过期的 token")
+    return user.user_id
 
 
 # ============================================================
@@ -57,6 +77,53 @@ def api_root():
         },
         "docs": "/docs",
     }
+
+
+# ============================================================
+# Auth
+# ============================================================
+
+
+@router.post("/auth/register", response_model=AuthResponse, status_code=201)
+def api_register(req: RegisterRequest):
+    """注册新用户。"""
+    try:
+        user, token = auth.register(req.username, req.password)
+        return AuthResponse(
+            token=token, user_id=user.user_id, username=user.username, message="注册成功"
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+
+
+@router.post("/auth/login", response_model=AuthResponse)
+def api_login(req: LoginRequest):
+    """用户登入 → 返回 token。"""
+    try:
+        token = auth.login(req.username, req.password)
+        user = auth.validate_token(token)
+        return AuthResponse(
+            token=token, user_id=user.user_id, username=user.username, message="登入成功"
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=401, detail=str(e)) from e
+
+
+@router.get("/auth/me", response_model=UserProfile)
+def api_me(user_id: str = Depends(get_current_user)):
+    """获取当前用户信息（需 Bearer token）。"""
+    user = auth.get_user(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="用户不存在")
+    progress = progress_store.load_progress(user_id)
+    return UserProfile(
+        user_id=user.user_id,
+        username=user.username,
+        created_at=user.created_at,
+        last_login=user.last_login,
+        session_count=len(progress.get("sessions", [])),
+        mastered_kp_count=len(progress_store.get_mastered_ids(user_id)),
+    )
 
 
 # ============================================================
@@ -109,17 +176,11 @@ def list_kps_api(subject_id: str):
 
 
 @router.post("/sessions", response_model=SessionCreatedResponse, status_code=201)
-def create_session(req: CreateSessionRequest):
-    """创建学习 session。
+def create_session(req: CreateSessionRequest, user_id: str = Depends(get_current_user)):
+    """创建学习 session（需 Bearer token）。
 
     执行 LangGraph Phase 1：planner → tutor → quiz，
     在 grade 前暂停，返回教学内容和测验题。
-
-    Args:
-        req: 包含 subject_id 和 time_minutes
-
-    Returns:
-        session_id + plan + tutor_content + quiz
     """
     graph = get_graph()
     kg = get_kg()
@@ -130,14 +191,17 @@ def create_session(req: CreateSessionRequest):
     if not subject:
         raise HTTPException(status_code=404, detail=f"Subject not found: {req.subject_id}")
 
-    session_id = str(uuid.uuid4())[:8]
+    # 使用 user_id 作为 thread_id，绑定学习进度
+    session_id = user_id
     config = {"configurable": {"thread_id": session_id}}
 
+    # 加载用户已有进度
     initial_state = {
         "subject_id": req.subject_id,
         "subject_name": subject["name"],
         "subject_type": subject.get("type", "unknown"),
         "time_minutes": req.time_minutes,
+        "user_id": user_id,
     }
 
     logger.info("api_session_create", session_id=session_id, subject=req.subject_id)
@@ -165,7 +229,7 @@ def create_session(req: CreateSessionRequest):
 
 
 @router.get("/sessions/{session_id}", response_model=SessionStatusResponse)
-def get_session(session_id: str):
+def get_session(session_id: str, user_id: str = Depends(get_current_user)):
     """查询 session 状态。
 
     返回当前阶段和已有数据（plan / quiz / graded / diagnosis）。
@@ -195,7 +259,9 @@ def get_session(session_id: str):
 
 
 @router.post("/sessions/{session_id}/answers", response_model=SubmitAnswersResponse)
-def submit_answers(session_id: str, req: SubmitAnswersRequest):
+def submit_answers(
+    session_id: str, req: SubmitAnswersRequest, user_id: str = Depends(get_current_user)
+):
     """提交测验答案。
 
     执行 LangGraph Phase 2：grade → diagnose，
@@ -231,6 +297,11 @@ def submit_answers(session_id: str, req: SubmitAnswersRequest):
     cached["phase"] = "result"
     cached["graded"] = result.get("graded")
     cached["diagnosis"] = result.get("diagnosis")
+
+    # 持久化用户学习进度
+    diagnosis = result.get("diagnosis", {})
+    if diagnosis:
+        progress_store.save_progress(user_id, diagnosis, result.get("plan"))
 
     return SubmitAnswersResponse(
         session_id=session_id,

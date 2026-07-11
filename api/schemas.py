@@ -172,3 +172,44 @@ class HealthResponse(BaseModel):
 
     status: str
     checks: dict
+
+
+# ============================================================
+# 认证模型
+# ============================================================
+
+
+class RegisterRequest(BaseModel):
+    """注册请求。"""
+
+    username: str = Field(
+        ..., min_length=3, max_length=32, description="用户名", examples=["alice"]
+    )
+    password: str = Field(..., min_length=6, description="密码（≥6位）", examples=["secret123"])
+
+
+class LoginRequest(BaseModel):
+    """登入请求。"""
+
+    username: str = Field(..., description="用户名", examples=["alice"])
+    password: str = Field(..., description="密码", examples=["secret123"])
+
+
+class AuthResponse(BaseModel):
+    """认证响应。"""
+
+    token: str
+    user_id: str
+    username: str
+    message: str = ""
+
+
+class UserProfile(BaseModel):
+    """用户信息。"""
+
+    user_id: str
+    username: str
+    created_at: str = ""
+    last_login: str = ""
+    session_count: int = 0
+    mastered_kp_count: int = 0

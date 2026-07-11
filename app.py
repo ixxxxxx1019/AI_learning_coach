@@ -5,17 +5,19 @@ LangGraph 管理后端流程，Streamlit 负责 UI 交互。
 st.session_state 在多次页面刷新间保持 Graph 状态。
 """
 
-import uuid
-
 import streamlit as st
 
 from agent.graph import create_graph
 from config.logging_config import get_logger, setup_logging
+from utils.auth import AuthManager
 from utils.knowledge_graph import list_subjects, load_kg
+from utils.progress_store import ProgressStore
 
 # 全局初始化 structlog
 setup_logging()
 logger = get_logger(__name__)
+auth = AuthManager()
+progress_store = ProgressStore()
 
 # ============================================================
 # 页面配置
@@ -34,12 +36,67 @@ st.caption("基于 LangGraph 的智能学习系统 —— 规划 → 讲解 → 
 # ============================================================
 if "graph" not in st.session_state:
     st.session_state.graph = create_graph()
-if "thread_id" not in st.session_state:
-    st.session_state.thread_id = str(uuid.uuid4())[:8]
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+if "user_id" not in st.session_state:
+    st.session_state.user_id = ""
 if "config" not in st.session_state:
-    st.session_state.config = {"configurable": {"thread_id": st.session_state.thread_id}}
+    st.session_state.config = {}
 if "phase" not in st.session_state:
-    st.session_state.phase = "setup"
+    st.session_state.phase = "login"
+
+
+# ============================================================
+# Phase 0: 登入 / 注册
+# ============================================================
+if st.session_state.phase == "login":
+    col_center = st.columns([1, 2, 1])[1]
+    with col_center:
+        st.subheader("👤 登入 AI学习教练")
+
+        tab_login, tab_register = st.tabs(["登入", "注册"])
+
+        with tab_login:
+            login_username = st.text_input("用户名", key="login_user")
+            login_password = st.text_input("密码", type="password", key="login_pass")
+            if st.button("🔑 登入", type="primary", use_container_width=True):
+                if login_username and login_password:
+                    try:
+                        token = auth.login(login_username, login_password)
+                        user = auth.validate_token(token)
+                        st.session_state.logged_in = True
+                        st.session_state.user_id = user.user_id
+                        st.session_state.thread_id = user.user_id
+                        st.session_state.config = {"configurable": {"thread_id": user.user_id}}
+                        st.session_state.phase = "setup"
+                        logger.info("ui_login", user_id=user.user_id)
+                        st.rerun()
+                    except ValueError as e:
+                        st.error(str(e))
+                else:
+                    st.warning("请输入用户名和密码")
+
+        with tab_register:
+            reg_username = st.text_input("用户名（3-32位字母数字下划线）", key="reg_user")
+            reg_password = st.text_input("密码（≥6位）", type="password", key="reg_pass")
+            if st.button("📝 注册", type="primary", use_container_width=True):
+                if reg_username and reg_password:
+                    try:
+                        user, token = auth.register(reg_username, reg_password)
+                        st.session_state.logged_in = True
+                        st.session_state.user_id = user.user_id
+                        st.session_state.thread_id = user.user_id
+                        st.session_state.config = {"configurable": {"thread_id": user.user_id}}
+                        st.session_state.phase = "setup"
+                        logger.info("ui_register", user_id=user.user_id)
+                        st.success("注册成功！")
+                        st.rerun()
+                    except ValueError as e:
+                        st.error(str(e))
+                else:
+                    st.warning("请输入用户名和密码")
+
+    st.stop()
 
 
 # ============================================================
@@ -68,6 +125,18 @@ if st.session_state.phase == "setup":
         if selected.get("description"):
             st.info(selected["description"])
 
+    # 显示用户历史统计
+    if st.session_state.user_id:
+        progress = progress_store.load_progress(st.session_state.user_id)
+        sessions = progress.get("sessions", [])
+        if sessions:
+            with st.expander(f"📊 学习历史（共 {len(sessions)} 次）", expanded=False):
+                for s in sessions[-5:]:
+                    st.write(
+                        f"- {s.get('date', '?')} | {s.get('subject', '?')} | "
+                        f"得分: {s.get('score', 0):.0f} | 时长: {s.get('duration', 0)}min"
+                    )
+
     if st.button("🚀 开始学习", type="primary", use_container_width=True):
         with st.spinner("AI 正在制定学习计划..."):
             initial_state = {
@@ -75,6 +144,7 @@ if st.session_state.phase == "setup":
                 "subject_name": selected["name"],
                 "subject_type": selected.get("type", "unknown"),
                 "time_minutes": time_minutes,
+                "user_id": st.session_state.get("user_id", ""),
             }
 
             logger.info(
@@ -186,6 +256,24 @@ elif st.session_state.phase in ("learning", "quiz"):
             st.session_state.diagnosis = result.get("diagnosis", {})
             st.session_state.phase = "result"
 
+            # 持久化学习进度
+            user_id = st.session_state.get("user_id", "")
+            diagnosis = result.get("diagnosis", {})
+            if user_id and diagnosis:
+                progress_store.save_progress(user_id, diagnosis, result.get("plan"))
+                logger.info("progress_saved_ui", user_id=user_id)
+
+        st.rerun()
+
+    # 登出按钮
+    st.divider()
+    if st.button("🚪 登出", type="secondary"):
+        st.session_state.logged_in = False
+        st.session_state.user_id = ""
+        st.session_state.phase = "login"
+        for k in list(st.session_state.keys()):
+            if k not in ("graph",):
+                del st.session_state[k]
         st.rerun()
 
 

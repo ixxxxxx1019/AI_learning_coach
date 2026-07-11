@@ -8,6 +8,7 @@ from agent.resilience import CircuitBreaker, retryable_invoke
 from agent.tutor import create_tutor
 from config.logging_config import get_logger
 from utils.knowledge_graph import get_kp, list_all_kps, load_kg
+from utils.progress_store import ProgressStore
 
 logger = get_logger(__name__)
 
@@ -33,14 +34,33 @@ def planner_node(state: LearningState) -> dict:
     kg = load_kg()
     all_kps = list_all_kps(kg, subject_id=subject_id)
 
-    # 构建知识点摘要（id + title + difficulty + 依赖关系）
+    # 加载用户学习进度（如果有 user_id）
+    user_id = state.get("user_id", "")
+    progress_store = ProgressStore()
+    mastered_ids: set[str] = set()
+    progress_info_lines: list[str] = []
+    if user_id:
+        mastered_ids = progress_store.get_mastered_ids(user_id)
+        progress = progress_store.load_progress(user_id)
+        session_count = len(progress.get("sessions", []))
+        if session_count > 0:
+            progress_info_lines.append(
+                f"该用户已学习 {session_count} 次，上次活跃于 {progress.get('last_active', '未知')}"
+            )
+
+    # 构建知识点摘要（id + title + difficulty + 依赖关系 + 掌握状态）
     kp_summary_lines = []
     for kp in all_kps:
         prereqs = kp.get("prerequisites", [])
         prereq_str = f" (前置依赖: {', '.join(prereqs)})" if prereqs else ""
         difficulty_stars = "★" * kp.get("difficulty", 3)
-        kp_summary_lines.append(f"  - {kp['id']}: {kp['title']} [{difficulty_stars}]{prereq_str}")
+        mastered_mark = " [已掌握]" if kp["id"] in mastered_ids else ""
+        kp_summary_lines.append(
+            f"  - {kp['id']}: {kp['title']} [{difficulty_stars}]{prereq_str}{mastered_mark}"
+        )
     kp_summary = "\n".join(kp_summary_lines) if kp_summary_lines else "（无知识点数据）"
+
+    mastered_list = ", ".join(sorted(mastered_ids)) if mastered_ids else "（无）"
 
     # 拼装 user_input
     user_input = f"""
@@ -48,15 +68,21 @@ def planner_node(state: LearningState) -> dict:
 学科类型：{state.get("subject_type", "unknown")}
 可用时间：{state.get("time_minutes", 30)}分钟
 
-可用知识点列表（共 {len(all_kps)} 个）：
+已掌握知识点（mastery >= 0.6）：{mastered_list}
+{"\\n".join(progress_info_lines)}
+
+可用知识点列表（共 {len(all_kps)} 个，含掌握状态）：
 {kp_summary}
 
-注意：你规划的每个 phase 中的 kp_ids 必须从上述列表中选择，不要编造不存在的 ID。
+规划策略：
+- [已掌握] 的知识点可放入 review 阶段快速复习（分配较少时间）
+- 优先选择未掌握的前置依赖已满足的知识点放入 learn_new 阶段
+- 每个 phase 的 kp_ids 必须从上述列表中选择，不要编造不存在的 ID
 """
 
-    # 如果状态中有知识点进度信息，一并传入
+    # 如果状态中有额外的进度信息，追加
     if state.get("progress_info"):
-        user_input += f"\n当前学习进度：\n{state['progress_info']}\n"
+        user_input += f"\n额外进度信息：\n{state['progress_info']}\n"
 
     plan = retryable_invoke(planner, {"user_input": user_input})
 

@@ -41,3 +41,4 @@ logs/
 # 数据（运行时生成）
 data/user_progress.json
 data/checkpoints.db
+data/users.json
