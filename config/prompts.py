@@ -203,9 +203,7 @@ class PromptLoader:
             return None
         return _load_yaml_cached(str(yaml_path))
 
-    def get_system_prompt(
-        self, agent_name: str, sub_agent: str | None = None
-    ) -> str:
+    def get_system_prompt(self, agent_name: str, sub_agent: str | None = None) -> str:
         """获取系统提示文本。
 
         Args:
@@ -230,9 +228,7 @@ class PromptLoader:
 
         return data.get("system", self._get_fallback(agent_name, sub_agent))
 
-    def _get_fallback(
-        self, agent_name: str, sub_agent: str | None = None
-    ) -> str:
+    def _get_fallback(self, agent_name: str, sub_agent: str | None = None) -> str:
         """获取硬编码回退 Prompt。"""
         if agent_name == "planner":
             return _FALLBACK_PLANNER

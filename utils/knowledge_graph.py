@@ -21,6 +21,7 @@ _DEFAULT_KG_PATH = Path(__file__).parent.parent / "data" / "knowledge_graph.json
 # 加载
 # ------------------------------------------------------------------
 
+
 def load_kg(path: Path | None = None) -> dict:
     """加载知识图谱 JSON 文件。
 
@@ -45,6 +46,7 @@ def save_kg(kg: dict, path: Path | None = None):
 # ------------------------------------------------------------------
 # Subject 查询
 # ------------------------------------------------------------------
+
 
 def list_subjects(kg: dict) -> list[dict]:
     """列出所有学科的基本信息。
@@ -77,6 +79,7 @@ def get_subject(kg: dict, subject_id: str) -> dict | None:
 # Domain 查询
 # ------------------------------------------------------------------
 
+
 def list_domains(kg: dict, subject_id: str) -> list[dict]:
     """列出某学科下的所有领域。"""
     subject = get_subject(kg, subject_id)
@@ -96,6 +99,7 @@ def list_domains(kg: dict, subject_id: str) -> list[dict]:
 # ------------------------------------------------------------------
 # Knowledge Point 查询
 # ------------------------------------------------------------------
+
 
 def get_kp(kg: dict, kp_id: str) -> dict | None:
     """按 ID 跨所有 subject 查找知识点。"""
@@ -139,6 +143,7 @@ def list_all_kps(kg: dict, subject_id: str | None = None) -> list[dict]:
 # ------------------------------------------------------------------
 # 依赖图查询（核心亮点！）
 # ------------------------------------------------------------------
+
 
 def get_prerequisites(kg: dict, kp_id: str) -> list[dict]:
     """获取某个知识点的所有前置依赖（递归一层）。
@@ -218,6 +223,7 @@ def find_weak_root_causes(
 # 筛选与排序
 # ------------------------------------------------------------------
 
+
 def filter_kps(
     kg: dict,
     subject_id: str | None = None,
@@ -271,10 +277,7 @@ def get_learnable_kps(
     learnable = [
         kp
         for kp in available
-        if all(
-            pid in mastered_ids or not get_kp(kg, pid)
-            for pid in kp.get("prerequisites", [])
-        )
+        if all(pid in mastered_ids or not get_kp(kg, pid) for pid in kp.get("prerequisites", []))
     ]
     # 按难度升序
     learnable.sort(key=lambda k: k.get("difficulty", 5))
@@ -284,6 +287,7 @@ def get_learnable_kps(
 # ------------------------------------------------------------------
 # 统计
 # ------------------------------------------------------------------
+
 
 def get_kp_count(kg: dict, subject_id: str | None = None) -> int:
     """统计知识点总数。"""

@@ -76,19 +76,23 @@ class ProgressStore:
 
             entry = progress["kp_progress"][kp_id]
             # 累加掌握度变化
-            entry["mastery"] = max(0.0, min(1.0, entry.get("mastery", 0.0) + kp.get("mastery_change", 0)))
+            entry["mastery"] = max(
+                0.0, min(1.0, entry.get("mastery", 0.0) + kp.get("mastery_change", 0))
+            )
             entry["last_reviewed"] = date.today().isoformat()
             entry["error_type"] = kp.get("error_type", "")
 
         # 记录 session
         if plan:
-            progress["sessions"].append({
-                "date": date.today().isoformat(),
-                "timestamp": datetime.now().isoformat(),
-                "subject": plan.get("subject_name", "unknown"),
-                "score": diagnosis.get("overall_score", 0),
-                "duration": plan.get("total_minutes", 0),
-            })
+            progress["sessions"].append(
+                {
+                    "date": date.today().isoformat(),
+                    "timestamp": datetime.now().isoformat(),
+                    "subject": plan.get("subject_name", "unknown"),
+                    "score": diagnosis.get("overall_score", 0),
+                    "duration": plan.get("total_minutes", 0),
+                }
+            )
 
         progress["last_active"] = date.today().isoformat()
 

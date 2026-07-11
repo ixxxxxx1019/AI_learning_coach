@@ -31,12 +31,12 @@ logger = get_logger(__name__)
 # 定价表（USD / 1M tokens）
 # ============================================================
 PRICING = {
-    "deepseek-chat":      {"input": 0.14, "output": 0.28},
-    "deepseek-reasoner":  {"input": 0.55, "output": 2.19},
-    "gpt-4o":             {"input": 2.50, "output": 10.00},
-    "gpt-4o-mini":        {"input": 0.15, "output": 0.60},
+    "deepseek-chat": {"input": 0.14, "output": 0.28},
+    "deepseek-reasoner": {"input": 0.55, "output": 2.19},
+    "gpt-4o": {"input": 2.50, "output": 10.00},
+    "gpt-4o-mini": {"input": 0.15, "output": 0.60},
     # 默认回退价格
-    "default":            {"input": 0.14, "output": 0.28},
+    "default": {"input": 0.14, "output": 0.28},
 }
 
 
@@ -55,6 +55,7 @@ def _get_price(model_name: str) -> dict[str, float]:
 # ============================================================
 # CostTracker
 # ============================================================
+
 
 class CostTracker(BaseCallbackHandler):
     """追踪 LLM 调用的 Token 消耗和费用。

@@ -1,6 +1,5 @@
 """Pydantic 模型序列化/反序列化测试。"""
 
-
 from agent.models import (
     Diagnosis,
     GradedQuestion,

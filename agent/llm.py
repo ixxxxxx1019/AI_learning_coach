@@ -47,6 +47,7 @@ def _get_secret(key: str, default: str = "") -> str:
     # 方式 1: Streamlit Cloud Secrets
     try:
         import streamlit as st
+
         if hasattr(st, "secrets"):
             secrets = dict(st.secrets)
             for k in (key, key.lower(), key.upper()):

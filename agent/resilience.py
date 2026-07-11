@@ -39,16 +39,17 @@ logger = get_logger(__name__)
 
 # ---- 可重试的异常类型 ----
 RETRYABLE_EXCEPTIONS = (
-    RateLimitError,       # 429 — API 限流
-    APITimeoutError,      # 请求超时
-    APIConnectionError,   # 网络连接错误
-    APIError,             # 其他 OpenAI API 错误（5xx）
+    RateLimitError,  # 429 — API 限流
+    APITimeoutError,  # 请求超时
+    APIConnectionError,  # 网络连接错误
+    APIError,  # 其他 OpenAI API 错误（5xx）
 )
 
 
 # ============================================================
 # Retry 装饰器
 # ============================================================
+
 
 def retryable_invoke(
     chain,
@@ -94,6 +95,7 @@ def retryable_invoke(
 # ============================================================
 # Circuit Breaker（熔断器）
 # ============================================================
+
 
 class CircuitBreakerOpenError(Exception):
     """熔断器打开时抛出的异常。"""
@@ -177,8 +179,10 @@ class CircuitBreaker:
                     )
                 else:
                     elapsed = (
-                        datetime.now() - self._last_failure_time
-                    ).total_seconds() if self._last_failure_time else 0
+                        (datetime.now() - self._last_failure_time).total_seconds()
+                        if self._last_failure_time
+                        else 0
+                    )
                     raise CircuitBreakerOpenError(
                         f"Circuit breaker '{self.name}' is OPEN "
                         f"(failures={self._failure_count}, "

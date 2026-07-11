@@ -38,9 +38,7 @@ def _get_processors(log_format: str) -> list[Any]:
         # 开发：彩色 Console
         renderer = structlog.dev.ConsoleRenderer(colors=True)
 
-    shared_processors.append(
-        structlog.stdlib.ProcessorFormatter.wrap_for_formatter
-    )
+    shared_processors.append(structlog.stdlib.ProcessorFormatter.wrap_for_formatter)
 
     return shared_processors, renderer
 

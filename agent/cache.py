@@ -57,6 +57,7 @@ def _get_disk_cache():
 # 缓存 Key 生成
 # ============================================================
 
+
 def _make_cache_key(agent_name: str, input_dict: dict[str, Any]) -> str:
     """生成稳定的缓存 Key。
 
@@ -76,6 +77,7 @@ def _make_cache_key(agent_name: str, input_dict: dict[str, Any]) -> str:
 # ============================================================
 # LLMCache 主类
 # ============================================================
+
 
 class LLMCache:
     """LLM 响应双层缓存。
@@ -180,6 +182,7 @@ class LLMCache:
                 expire_time = cache.get(expire_key, default=None)
                 if expire_time:
                     import time
+
                     if time.time() > expire_time:
                         # 已过期
                         cache.delete(cache_key)

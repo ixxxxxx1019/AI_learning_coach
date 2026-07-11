@@ -26,6 +26,7 @@ from datetime import date, timedelta
 # 核心算法
 # ------------------------------------------------------------------
 
+
 def sm2_update(
     ef: float,
     interval: int,
@@ -82,6 +83,7 @@ def sm2_update(
 # 日期计算
 # ------------------------------------------------------------------
 
+
 def calculate_next_review(interval: int, from_date: date | None = None) -> str:
     """计算下次复习日期。
 
@@ -102,6 +104,7 @@ def calculate_next_review(interval: int, from_date: date | None = None) -> str:
 # ------------------------------------------------------------------
 # 批量调度查询
 # ------------------------------------------------------------------
+
 
 def filter_due_reviews(progress: dict, reference_date: date | None = None) -> list[str]:
     """从用户进度中筛选出今日待复习的知识点 ID。
@@ -178,7 +181,7 @@ if __name__ == "__main__":
         ef, interval, rep = sm2_update(ef, interval, rep, score)
         status = "[PASS]" if score >= 0.6 else "[FAIL]"
         print(
-            f"  Round {i+1}: score={score} {status} -> "
+            f"  Round {i + 1}: score={score} {status} -> "
             f"EF={ef:.2f}, interval={interval}d, rep={rep}"
         )
 
@@ -186,10 +189,13 @@ if __name__ == "__main__":
     print("\n=== 待复习筛选测试 ===")
     today = date.today()
     progress = {
-        "k001": {"next_review": today.isoformat(), "mastery": 0.8},           # 今天
-        "k002": {"next_review": today.isoformat(), "mastery": 0.5},           # 今天
+        "k001": {"next_review": today.isoformat(), "mastery": 0.8},  # 今天
+        "k002": {"next_review": today.isoformat(), "mastery": 0.5},  # 今天
         "k003": {"next_review": (today + timedelta(days=3)).isoformat(), "mastery": 0.9},  # 3天后
-        "k004": {"next_review": (today - timedelta(days=2)).isoformat(), "mastery": 0.4},  # 2天前（过期）
+        "k004": {
+            "next_review": (today - timedelta(days=2)).isoformat(),
+            "mastery": 0.4,
+        },  # 2天前（过期）
     }
 
     due = filter_due_reviews(progress)
@@ -198,9 +204,17 @@ if __name__ == "__main__":
 
     # 测试记忆保持概率
     print("\n=== 记忆保持概率测试 ===")
-    print(f"  EF=2.5, interval=7d, 0 days elapsed:  {calculate_retention_probability(2.5, 7, 0):.1%}")
-    print(f"  EF=2.5, interval=7d, 3 days elapsed:  {calculate_retention_probability(2.5, 7, 3):.1%}")
-    print(f"  EF=2.5, interval=7d, 7 days elapsed:  {calculate_retention_probability(2.5, 7, 7):.1%}")
-    print(f"  EF=2.5, interval=7d, 14 days elapsed: {calculate_retention_probability(2.5, 7, 14):.1%}")
+    print(
+        f"  EF=2.5, interval=7d, 0 days elapsed:  {calculate_retention_probability(2.5, 7, 0):.1%}"
+    )
+    print(
+        f"  EF=2.5, interval=7d, 3 days elapsed:  {calculate_retention_probability(2.5, 7, 3):.1%}"
+    )
+    print(
+        f"  EF=2.5, interval=7d, 7 days elapsed:  {calculate_retention_probability(2.5, 7, 7):.1%}"
+    )
+    print(
+        f"  EF=2.5, interval=7d, 14 days elapsed: {calculate_retention_probability(2.5, 7, 14):.1%}"
+    )
 
     print("\n[OK] All tests passed!")

@@ -1,9 +1,10 @@
 """
-  Tutor Agent —— AI 讲师。
+Tutor Agent —— AI 讲师。
 
-  职责：根据 Planner 生成的阶段计划（StudyPhase），
-       生成详细的 Markdown 教学内容。
+职责：根据 Planner 生成的阶段计划（StudyPhase），
+     生成详细的 Markdown 教学内容。
 """
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
@@ -14,10 +15,12 @@ from config.prompts import PromptLoader
 logger = get_logger(__name__)
 _loader = PromptLoader()
 
-TUTOR_PROMPT = ChatPromptTemplate.from_messages([
-    ("system", _loader.get_system_prompt("tutor")),
-    ("user", "{user_input}"),
-])
+TUTOR_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", _loader.get_system_prompt("tutor")),
+        ("user", "{user_input}"),
+    ]
+)
 
 
 def create_tutor():
@@ -33,11 +36,13 @@ def create_tutor():
     llm = get_llm(temperature=0.5)
     return TUTOR_PROMPT | llm | StrOutputParser()
 
-if __name__ == "__main__":
-      from config.logging_config import setup_logging
-      setup_logging()
 
-      test_input = """
+if __name__ == "__main__":
+    from config.logging_config import setup_logging
+
+    setup_logging()
+
+    test_input = """
       请讲解以下CET6词汇知识点，当前是 learn_new 阶段：
 
       - k002: sophisticated - 复杂精密的，世故的
@@ -46,10 +51,7 @@ if __name__ == "__main__":
       这些词汇属于CET6高频词汇，请给出详细的讲解和记忆技巧。
       """
 
-      tutor = create_tutor()
-      result = tutor.invoke({"user_input": test_input})
-      logger.info("tutor_test_result", content_preview=result[:200])
-      print(result)
-
-
-
+    tutor = create_tutor()
+    result = tutor.invoke({"user_input": test_input})
+    logger.info("tutor_test_result", content_preview=result[:200])
+    print(result)

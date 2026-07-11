@@ -39,9 +39,7 @@ def planner_node(state: LearningState) -> dict:
         prereqs = kp.get("prerequisites", [])
         prereq_str = f" (前置依赖: {', '.join(prereqs)})" if prereqs else ""
         difficulty_stars = "★" * kp.get("difficulty", 3)
-        kp_summary_lines.append(
-            f"  - {kp['id']}: {kp['title']} [{difficulty_stars}]{prereq_str}"
-        )
+        kp_summary_lines.append(f"  - {kp['id']}: {kp['title']} [{difficulty_stars}]{prereq_str}")
     kp_summary = "\n".join(kp_summary_lines) if kp_summary_lines else "（无知识点数据）"
 
     # 拼装 user_input
@@ -74,70 +72,69 @@ def planner_node(state: LearningState) -> dict:
         "subject_name": plan.subject_name,
     }
 
+
 def tutor_node(state: LearningState) -> dict:
-      """节点2：AI讲师讲解。
+    """节点2：AI讲师讲解。
 
-      从 state 中读取 plan，按阶段顺序生成教学内容。
-      从知识图谱查找每个 KP 的详细信息（title、定义等）传给 Tutor。
-      """
-      tutor = create_tutor()
-      plan = state.get("plan", {})
-      phases = plan.get("phases", [])
-      kg = load_kg()
-      subject_type = state.get("subject_type", "unknown")
+    从 state 中读取 plan，按阶段顺序生成教学内容。
+    从知识图谱查找每个 KP 的详细信息（title、定义等）传给 Tutor。
+    """
+    tutor = create_tutor()
+    plan = state.get("plan", {})
+    phases = plan.get("phases", [])
+    kg = load_kg()
+    subject_type = state.get("subject_type", "unknown")
 
-      results = []
-      for i, phase in enumerate(phases):
-          # 从知识图谱查询每个 KP 的详细信息
-          kp_details_lines = []
-          for kp_id in phase.get("kp_ids", []):
-              kp = get_kp(kg, kp_id)
-              if kp:
-                  content = kp.get("content", {})
-                  title = kp.get("title", kp_id)
-                  if subject_type == "vocabulary":
-                      word = content.get("word", title)
-                      definition = content.get("definition_cn", "")
-                      pos = content.get("pos", "")
-                      kp_details_lines.append(
-                          f"  - {kp_id}: {word} ({pos}) — {definition}"
-                      )
-                  else:
-                      definition = content.get("definition", "")
-                      kp_details_lines.append(
-                          f"  - {kp_id}: {title} — {definition[:80]}"
-                      )
-              else:
-                  kp_details_lines.append(f"  - {kp_id}: （请根据 ID 推断内容进行讲解）")
+    results = []
+    for i, phase in enumerate(phases):
+        # 从知识图谱查询每个 KP 的详细信息
+        kp_details_lines = []
+        for kp_id in phase.get("kp_ids", []):
+            kp = get_kp(kg, kp_id)
+            if kp:
+                content = kp.get("content", {})
+                title = kp.get("title", kp_id)
+                if subject_type == "vocabulary":
+                    word = content.get("word", title)
+                    definition = content.get("definition_cn", "")
+                    pos = content.get("pos", "")
+                    kp_details_lines.append(f"  - {kp_id}: {word} ({pos}) — {definition}")
+                else:
+                    definition = content.get("definition", "")
+                    kp_details_lines.append(f"  - {kp_id}: {title} — {definition[:80]}")
+            else:
+                kp_details_lines.append(f"  - {kp_id}: （请根据 ID 推断内容进行讲解）")
 
-          kp_details = "\n".join(kp_details_lines) if kp_details_lines else "（无知识点数据）"
+        kp_details = "\n".join(kp_details_lines) if kp_details_lines else "（无知识点数据）"
 
-          user_input = f"""
-当前是第{i+1}阶段：{phase['name']}
-阶段类型：{phase['type']}
+        user_input = f"""
+当前是第{i + 1}阶段：{phase["name"]}
+阶段类型：{phase["type"]}
 学科类型：{subject_type}
 
 请讲解以下知识点：
 {kp_details}
 
-指导说明：{phase.get('instruction', '请详细讲解这些知识点')}
+指导说明：{phase.get("instruction", "请详细讲解这些知识点")}
 """
 
-          content = retryable_invoke(tutor, {"user_input": user_input})
-          results.append({
-              "phase_index": i,
-              "phase_name": phase["name"],
-              "phase_type": phase["type"],
-              "content": content,
-          })
-          logger.debug(
-              "tutor_phase_done",
-              phase=i + 1,
-              total=len(phases),
-              phase_name=phase["name"],
-          )
+        content = retryable_invoke(tutor, {"user_input": user_input})
+        results.append(
+            {
+                "phase_index": i,
+                "phase_name": phase["name"],
+                "phase_type": phase["type"],
+                "content": content,
+            }
+        )
+        logger.debug(
+            "tutor_phase_done",
+            phase=i + 1,
+            total=len(phases),
+            phase_name=phase["name"],
+        )
 
-      return {"tutor_results": results}
+    return {"tutor_results": results}
 
 
 def quiz_node(state: LearningState) -> dict:
@@ -188,7 +185,11 @@ def quiz_node(state: LearningState) -> dict:
 
     quiz = retryable_invoke(quiz_chain, {"user_input": user_input})
 
-    logger.info("quiz_generated", question_count=len(quiz.questions), estimated_minutes=quiz.estimated_total_minutes)
+    logger.info(
+        "quiz_generated",
+        question_count=len(quiz.questions),
+        estimated_minutes=quiz.estimated_total_minutes,
+    )
 
     return {"quiz_data": quiz.model_dump()}
 
@@ -268,44 +269,47 @@ next_priority 中的 ID 也必须从上述考察知识点中选择。
 
     diag = retryable_invoke(diagnosis_chain, {"user_input": user_input})
 
-    logger.info("diagnosis_done", overall_score=diag.overall_score, next_priority=diag.next_priority)
+    logger.info(
+        "diagnosis_done", overall_score=diag.overall_score, next_priority=diag.next_priority
+    )
 
     return {
         "diagnosis": diag.model_dump(),
         "session_done": True,
     }
 
+
 def create_graph():
-      """构建 AI学习教练 的 LangGraph 流程。
+    """构建 AI学习教练 的 LangGraph 流程。
 
-      节点流转:
-          planner → tutor → quiz → [等待用户答题] → grade → diagnose → END
+    节点流转:
+        planner → tutor → quiz → [等待用户答题] → grade → diagnose → END
 
-      关键设计：
-          interrupt_before=["grade"] 让流程在出题后暂停，
-          等用户在 Streamlit 界面提交答案后，再继续批改+诊断。
-      """
-      # 1. 创建 StateGraph，绑定 LearningState 作为共享状态
-      workflow = StateGraph(LearningState)
-      # 2. 注册所有节点
-      workflow.add_node("planner", planner_node)
-      workflow.add_node("tutor", tutor_node)
-      workflow.add_node("quiz", quiz_node)
-      workflow.add_node("grade", grade_node)
-      workflow.add_node("diagnose", diagnose_node)
-      # 3. 定义节点间的边（流转规则）
-      workflow.set_entry_point("planner")  # 入口：planner
-      workflow.add_edge("planner", "tutor")  # planner → tutor
-      workflow.add_edge("tutor", "quiz")  # tutor → quiz
-      workflow.add_edge("quiz", "grade")  # quiz → grade（中间会暂停）
-      workflow.add_edge("grade", "diagnose")  # grade → diagnose
-      workflow.add_edge("diagnose", END)  # diagnose → 结束
-      # 4. 在 grade 节点前暂停，等待用户提交答案
-      # MemorySaver 让 Graph 能记住暂停位置，支持中断后恢复
-      return workflow.compile(
-          interrupt_before=["grade"],
-          checkpointer=MemorySaver(),
-      )
+    关键设计：
+        interrupt_before=["grade"] 让流程在出题后暂停，
+        等用户在 Streamlit 界面提交答案后，再继续批改+诊断。
+    """
+    # 1. 创建 StateGraph，绑定 LearningState 作为共享状态
+    workflow = StateGraph(LearningState)
+    # 2. 注册所有节点
+    workflow.add_node("planner", planner_node)
+    workflow.add_node("tutor", tutor_node)
+    workflow.add_node("quiz", quiz_node)
+    workflow.add_node("grade", grade_node)
+    workflow.add_node("diagnose", diagnose_node)
+    # 3. 定义节点间的边（流转规则）
+    workflow.set_entry_point("planner")  # 入口：planner
+    workflow.add_edge("planner", "tutor")  # planner → tutor
+    workflow.add_edge("tutor", "quiz")  # tutor → quiz
+    workflow.add_edge("quiz", "grade")  # quiz → grade（中间会暂停）
+    workflow.add_edge("grade", "diagnose")  # grade → diagnose
+    workflow.add_edge("diagnose", END)  # diagnose → 结束
+    # 4. 在 grade 节点前暂停，等待用户提交答案
+    # MemorySaver 让 Graph 能记住暂停位置，支持中断后恢复
+    return workflow.compile(
+        interrupt_before=["grade"],
+        checkpointer=MemorySaver(),
+    )
 
 
 # ============================================================
@@ -313,71 +317,72 @@ def create_graph():
 # ============================================================
 
 if __name__ == "__main__":
-      from config.logging_config import setup_logging
-      setup_logging()
-      test_logger = get_logger("graph_test")
+    from config.logging_config import setup_logging
 
-      test_logger.info("langgraph_test_start")
+    setup_logging()
+    test_logger = get_logger("graph_test")
 
-      graph = create_graph()
+    test_logger.info("langgraph_test_start")
 
-      # 用 thread_id 标识一次会话，MemorySaver 据此持久化状态
-      config = {"configurable": {"thread_id": "test-session-001"}}
+    graph = create_graph()
 
-      # 初始状态：模拟用户输入（不再需要硬编码 progress_info，KG 自动提供）
-      initial_state = {
-          "subject_id": "cet6_vocab",
-          "subject_name": "CET6英语词汇",
-          "subject_type": "vocabulary",
-          "time_minutes": 20,
-      }
+    # 用 thread_id 标识一次会话，MemorySaver 据此持久化状态
+    config = {"configurable": {"thread_id": "test-session-001"}}
 
-      # 第一次执行：planner → tutor → quiz（到 grade 前暂停）
-      test_logger.info("phase1_start", phase="planning+tutoring+quiz")
-      result = graph.invoke(initial_state, config)
+    # 初始状态：模拟用户输入（不再需要硬编码 progress_info，KG 自动提供）
+    initial_state = {
+        "subject_id": "cet6_vocab",
+        "subject_name": "CET6英语词汇",
+        "subject_type": "vocabulary",
+        "time_minutes": 20,
+    }
 
-      quiz_data = result.get("quiz_data", {})
-      test_logger.info(
-          "phase1_intermediate",
-          subject=result.get("subject_name"),
-          tutor_phases=len(result.get("tutor_results", [])),
-          quiz_count=len(quiz_data.get("questions", [])),
-      )
+    # 第一次执行：planner → tutor → quiz（到 grade 前暂停）
+    test_logger.info("phase1_start", phase="planning+tutoring+quiz")
+    result = graph.invoke(initial_state, config)
 
-      # 检查 Graph 状态：应该暂停在 grade 之前
-      state = graph.get_state(config)
-      test_logger.info(
-          "graph_state_check",
-          next_node=str(state.next),
-          completed_nodes=list(state.metadata.get("writes", {})),
-      )
+    quiz_data = result.get("quiz_data", {})
+    test_logger.info(
+        "phase1_intermediate",
+        subject=result.get("subject_name"),
+        tutor_phases=len(result.get("tutor_results", [])),
+        quiz_count=len(quiz_data.get("questions", [])),
+    )
 
-      # 模拟用户答题后，继续执行
-      test_logger.info("phase2_start", phase="grading+diagnosis")
+    # 检查 Graph 状态：应该暂停在 grade 之前
+    state = graph.get_state(config)
+    test_logger.info(
+        "graph_state_check",
+        next_node=str(state.next),
+        completed_nodes=list(state.metadata.get("writes", {})),
+    )
 
-      # 模拟用户答案（故意错一半，验证批改能力）
-      questions = quiz_data.get("questions", [])
-      user_answers = {}
-      for i, q in enumerate(questions):
-          if i % 2 == 0:
-              user_answers[q["id"]] = q.get("correct", "")  # 偶数题答对
-          else:
-              user_answers[q["id"]] = "我不知道"  # 奇数题故意答错
+    # 模拟用户答题后，继续执行
+    test_logger.info("phase2_start", phase="grading+diagnosis")
 
-      # 1) 先更新状态，注入用户答案
-      graph.update_state(config, {"user_answers": user_answers})
-      # 2) 再用 invoke(None, config) 从暂停点恢复执行
-      result = graph.invoke(None, config)
+    # 模拟用户答案（故意错一半，验证批改能力）
+    questions = quiz_data.get("questions", [])
+    user_answers = {}
+    for i, q in enumerate(questions):
+        if i % 2 == 0:
+            user_answers[q["id"]] = q.get("correct", "")  # 偶数题答对
+        else:
+            user_answers[q["id"]] = "我不知道"  # 奇数题故意答错
 
-      graded = result.get("graded", {})
-      diagnosis = result.get("diagnosis", {})
-      test_logger.info(
-          "phase2_result",
-          correct=f"{graded.get('total_correct')}/{graded.get('total_questions')}",
-          score=graded.get("overall_score"),
-          diagnosis_summary=diagnosis.get("summary", "")[:100],
-          next_priority=diagnosis.get("next_priority"),
-          session_done=result.get("session_done"),
-      )
+    # 1) 先更新状态，注入用户答案
+    graph.update_state(config, {"user_answers": user_answers})
+    # 2) 再用 invoke(None, config) 从暂停点恢复执行
+    result = graph.invoke(None, config)
 
-      test_logger.info("langgraph_test_done")
+    graded = result.get("graded", {})
+    diagnosis = result.get("diagnosis", {})
+    test_logger.info(
+        "phase2_result",
+        correct=f"{graded.get('total_correct')}/{graded.get('total_questions')}",
+        score=graded.get("overall_score"),
+        diagnosis_summary=diagnosis.get("summary", "")[:100],
+        next_priority=diagnosis.get("next_priority"),
+        session_done=result.get("session_done"),
+    )
+
+    test_logger.info("langgraph_test_done")

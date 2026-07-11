@@ -5,6 +5,7 @@ Planner Agent —— 学习规划师。
       分析知识图谱中的依赖关系，
       生成结构化的 StudyPlan。
 """
+
 from langchain_core.prompts import ChatPromptTemplate
 
 from agent.llm import get_structured_llm
@@ -15,10 +16,12 @@ from config.prompts import PromptLoader
 logger = get_logger(__name__)
 _loader = PromptLoader()
 
-PLANNER_PROMPT = ChatPromptTemplate.from_messages([
-      ("system", _loader.get_system_prompt("planner")),
-      ("user", "{user_input}"),
-  ])
+PLANNER_PROMPT = ChatPromptTemplate.from_messages(
+    [
+        ("system", _loader.get_system_prompt("planner")),
+        ("user", "{user_input}"),
+    ]
+)
 
 
 def create_planner():
@@ -35,12 +38,14 @@ def create_planner():
     # 用 | 管道符把 Prompt 和 LLM 串成一条 Chain
     return PLANNER_PROMPT | structured_llm
 
-if __name__ == "__main__":
-      from config.logging_config import setup_logging
-      setup_logging()
 
-      # 模拟用户输入
-      test_input = """
+if __name__ == "__main__":
+    from config.logging_config import setup_logging
+
+    setup_logging()
+
+    # 模拟用户输入
+    test_input = """
       学科：CET6英语词汇
       可用时间：30分钟
       当前进度：已掌握基础词汇（k001），需要学习高频词汇（k002, k003, k004）
@@ -57,20 +62,20 @@ if __name__ == "__main__":
       - k004: articulate - 清晰表达的（未学）
       """
 
-      planner = create_planner()
-      plan = planner.invoke({"user_input": test_input})
+    planner = create_planner()
+    plan = planner.invoke({"user_input": test_input})
 
-      logger.info("planner_test_result")
-      logger.info("subject", name=plan.subject_name)
-      logger.info("total_minutes", minutes=plan.total_minutes)
-      logger.info("rationale", text=plan.rationale)
-      logger.info("phase_count", count=len(plan.phases))
-      for i, phase in enumerate(plan.phases):
-          logger.info(
-              f"phase_{i+1}",
-              name=phase.name,
-              type=phase.type,
-              kp_ids=phase.kp_ids,
-              estimated_minutes=phase.estimated_minutes,
-              instruction=phase.instruction,
-          )
+    logger.info("planner_test_result")
+    logger.info("subject", name=plan.subject_name)
+    logger.info("total_minutes", minutes=plan.total_minutes)
+    logger.info("rationale", text=plan.rationale)
+    logger.info("phase_count", count=len(plan.phases))
+    for i, phase in enumerate(plan.phases):
+        logger.info(
+            f"phase_{i + 1}",
+            name=phase.name,
+            type=phase.type,
+            kp_ids=phase.kp_ids,
+            estimated_minutes=phase.estimated_minutes,
+            instruction=phase.instruction,
+        )
